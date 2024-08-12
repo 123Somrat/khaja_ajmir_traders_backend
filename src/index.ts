@@ -1,14 +1,13 @@
 import http from "http";
 import app from "./app";
-import cors from "cors";
-import express from "express";
+import middleWare from "./middleware";
 
 const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
 // middleware
-app.use(cors());
-app.use(express.json());
+middleWare(app)
+
 
 // application strat
 const main = () => {

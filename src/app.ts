@@ -9,7 +9,7 @@ dotenv.config()
 app.get("/health", (_req, res) => {
   res.json({
     health: "OK",
-    message: "Boddha biaggin tik tak,Tui ham gor",
+    message: "Boddha biaggin tik tak,Tui ham gor boddha",
     code: 200,
   });
 });
