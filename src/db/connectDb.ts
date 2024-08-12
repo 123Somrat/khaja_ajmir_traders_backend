@@ -16,7 +16,7 @@ dbConnetionsUrl = `${dbConnetionsUrl}/${process.env.DB_NAME}/${process.env.DB_QU
 const connectDb =async ()=>{
   
       await mongoose.connect(dbConnetionsUrl)
-      console.log('succesFully connected with db')
+      console.log("succesfully connected with db")
 }
 
 export default connectDb;
