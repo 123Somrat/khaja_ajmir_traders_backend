@@ -2,6 +2,7 @@ import app from "../app";
 import cors from "cors";
 import express, { Application, Request, Response, NextFunction } from "express";
 import router from "../routes";
+import HttpError from "../utils/customError";
 
 const middleWare = (app: Application) => {
   app.use(cors());
@@ -9,7 +10,7 @@ const middleWare = (app: Application) => {
   app.use(router);
 };
 
-app.use((err:any, req: Request, res: Response, next: NextFunction) => {
+app.use((err:HttpError, req: Request, res: Response, next: NextFunction) => {
   next();
   res.status(err.status).json({
     status: err.status || 500,
