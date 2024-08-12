@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 let dbConnetionsUrl = process.env.DBCONNECTION_URL as string;
 dbConnetionsUrl = dbConnetionsUrl.replace(
   "<username>",
@@ -12,11 +11,13 @@ dbConnetionsUrl = dbConnetionsUrl.replace(
 );
 dbConnetionsUrl = `${dbConnetionsUrl}/${process.env.DB_NAME}/${process.env.DB_QUARIRS}`;
 
-
-const connectDb =async ()=>{
-  
-      await mongoose.connect(dbConnetionsUrl)
-      console.log("succesfully connected with db")
-}
+const connectDb = async () => {
+  try {
+    await mongoose.connect(dbConnetionsUrl);
+    console.log("succesfully connected with db");
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export default connectDb;
