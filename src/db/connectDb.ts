@@ -9,7 +9,7 @@ dbConnetionsUrl = dbConnetionsUrl.replace(
   "<password>",
   process.env.DB_PASSWORD as string
 );
-dbConnetionsUrl = `${dbConnetionsUrl}/${process.env.DB_NAME}/${process.env.DB_QUARIRS}`;
+dbConnetionsUrl = `${dbConnetionsUrl}/${process.env.DB_NAME}?${process.env.DB_QUARIRS}`;
 
 const connectDb = async () => {
   try {

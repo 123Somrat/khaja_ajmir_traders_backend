@@ -3,9 +3,12 @@ class HttpError extends Error {
   code: string;
   constructor(status: number, code: string, messsage: string) {
     super(messsage);
-    this.status = status; 
+    this.status = status;
     this.code = code;
+
+    // Set the prototype explicitly to maintain the prototype chain
+    Object.setPrototypeOf(this, HttpError.prototype);
   }
 }
 
-export default HttpError
+export default HttpError;

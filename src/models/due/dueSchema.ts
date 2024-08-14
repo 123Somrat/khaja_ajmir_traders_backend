@@ -19,7 +19,7 @@ const dueSchema = new Schema<dueType>(
       type: String,
       required: true,
     },
-    price: {
+    buyingPrice: {
       type: Number,
       required: true,
     },
@@ -27,6 +27,6 @@ const dueSchema = new Schema<dueType>(
   { timestamps: true }
 );
 
-const due = model<dueType>("dueModel", dueSchema);
+const dueModel = model<dueType>("due", dueSchema);
 
-export default due;
+export default dueModel;

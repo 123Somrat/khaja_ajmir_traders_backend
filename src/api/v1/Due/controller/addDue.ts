@@ -1,12 +1,19 @@
-import { Request , Response , NextFunction } from "express"
+import { Request, Response, NextFunction } from "express";
+import dueService from "../../../../lib/due";
 
+const addDue = async (req: Request, res: Response, next: NextFunction) => {
+  // extract data from req body
+  const duePaylode = req.body.dueData;
 
-const addDue = (req:Request,res:Response,next:NextFunction)=>{
-    res.status(200).json({
-         status:200,
-         code : "Ok",
-         message: 'data is comeing'
-    })
-}
+   // Call due Service for create a due
+  const dueCreatedInfo = await dueService.addDue(duePaylode);
 
-export default addDue
+  res.status(201).json({
+    status: 201,
+    code: "Ok",
+    message:'Due created successfully',
+    data:dueCreatedInfo
+  });
+};
+
+export default addDue;

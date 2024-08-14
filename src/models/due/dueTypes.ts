@@ -3,6 +3,6 @@ type dueType = {
   sellerName: string;
   buyingDate: string;
   expiredDate: string;
-  price: Number;
+  buyingPrice: number;
 };
 export default dueType;
