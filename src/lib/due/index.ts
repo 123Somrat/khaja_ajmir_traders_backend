@@ -2,16 +2,15 @@ import dueModel from "../../models/due/dueSchema";
 import dueType from "../../models/due/dueTypes";
 import HttpError from "../../utils/customError";
 
-
 /**
- * 
+ *
  * @param duePaylode \
- * @returns 
+ * @returns
  */
-const addDue = async (duePaylode: dueType) => {
+const createDue = async (duePaylode: dueType) => {
   try {
-    const dueData = await dueModel.create(duePaylode);
-    return dueData;
+    const createdDueInfo = await dueModel.create(duePaylode);
+    return createdDueInfo;
   } catch (err) {
     throw new HttpError(
       500,
@@ -21,4 +20,4 @@ const addDue = async (duePaylode: dueType) => {
   }
 };
 
-export = { addDue };
+export = { createDue };

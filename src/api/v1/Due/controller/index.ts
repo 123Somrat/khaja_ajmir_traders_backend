@@ -1,4 +1,4 @@
-import addDue from "./addDue";
+import createDue from "./createDue";
 
 
-export  = {addDue}
+export  = {createDue}

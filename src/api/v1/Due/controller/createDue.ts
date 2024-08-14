@@ -2,21 +2,21 @@ import { Request, Response, NextFunction } from "express";
 import dueService from "../../../../lib/due";
 import asyncHandeler from "../../../../utils/asyncHandeler";
 
-const addDue = asyncHandeler(
+const createDue = asyncHandeler(
   async (req: Request, res: Response, next: NextFunction) => {
     // extract data from req body
     const duePaylode = req.body.dueData;
 
     // Call due Service for create a due
-    const dueCreatedInfo = await dueService.addDue(duePaylode);
+    const createdDueInfo = await dueService.createDue(duePaylode);
 
     // send a response with created data
     res.status(201).json({
       status: 201,
       code: "Ok",
       message: "Due created successfully",
-      data: dueCreatedInfo,
+      data: createdDueInfo,
     });
   }
 );
-export default addDue;
+export default createDue;
