@@ -5,3 +5,5 @@ const asyncHandeler = (fn: RequestHandler) => {
     Promise.resolve(fn(req, res, next)).catch((err) => next(err));
   };
 };
+
+export default asyncHandeler;
