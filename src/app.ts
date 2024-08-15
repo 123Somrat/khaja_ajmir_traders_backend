@@ -1,5 +1,6 @@
-import express from "express";
+import express, { Request , Response , NextFunction} from "express";
 import dotenv from "dotenv";
+import HttpError from "./utils/customError";
 
 const app = express();
 dotenv.config();

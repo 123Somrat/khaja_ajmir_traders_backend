@@ -11,6 +11,10 @@ const dueSchema = new Schema<dueType>(
       type: String,
       required: true,
     },
+    buyingPrice: {
+      type: Number,
+      required: true,
+    },
     buyingDate: {
       type: String,
       required: true,
@@ -19,10 +23,7 @@ const dueSchema = new Schema<dueType>(
       type: String,
       required: true,
     },
-    buyingPrice: {
-      type: Number,
-      required: true,
-    },
+  
   },
   { timestamps: true }
 );
