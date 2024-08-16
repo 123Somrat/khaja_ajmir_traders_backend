@@ -13,7 +13,7 @@ const createDue = asyncHandeler(
     // send a response with created data
     res.status(201).json({
       status: 201,
-      code: "Ok",
+      code: "Created succesfully",
       message: "Due created successfully",
       data: createdDueInfo,
     });

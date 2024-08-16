@@ -8,13 +8,11 @@ import HttpError from "../../utils/customError";
  * @returns
  */
 const createDue = async (duePaylode: dueType) => {
- 
   try {
     const createdDueInfo = await dueModel.create(duePaylode);
- 
+
     return createdDueInfo;
   } catch (err) {
-   
     throw new HttpError(
       500,
       "Internal server error",
