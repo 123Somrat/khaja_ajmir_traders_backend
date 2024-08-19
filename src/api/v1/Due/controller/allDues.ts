@@ -1,15 +1,30 @@
 import asyncHandeler from "../../../../utils/asyncHandeler";
 import { Request , Response , NextFunction } from "express";
+import dueSercice from '../../../../lib/due'
+const allDues =async (req:Request,res:Response,next:NextFunction)=>{
 
-const allDues = (req:Request,res:Response,next:NextFunction)=>{
 
-    const query = req.query;
-    console.log(query)
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const sortType = req.query.sort as string || 'dsc';
+    const sortBy = req.query.sortBy as string || 'date'
+    const searchBy = req.query.searchBy as string || ''
+
+
+
+
+
+// Call allDues service for getting all dues from db
+ 
+const allDue =await dueSercice.allDues(page,limit,sortType,sortBy,searchBy)
+
+
 
    res.status(200).json({
        status:200,
        code:'OK',
        message:'Data retrived succesfully',
+       allDue:allDue
     
    })
 
