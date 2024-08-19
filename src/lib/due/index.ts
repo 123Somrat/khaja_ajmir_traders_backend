@@ -61,4 +61,15 @@ const allDues = async (
   }
 };
 
-export = { createDue, allDues };
+
+const count =async (searchBy:string)=>{
+ const filter = {sellerName:{$regex:searchBy,$options:'i'}}
+ const data =await dueModel.countDocuments(filter)
+ console.log(data)
+
+}
+
+
+
+
+export = { createDue, allDues , count };

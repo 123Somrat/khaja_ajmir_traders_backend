@@ -15,10 +15,10 @@ const allDues =async (req:Request,res:Response,next:NextFunction)=>{
 
 
 // Call allDues service for getting all dues from db
- 
 const allDue =await dueSercice.allDues(page,limit,sortType,sortBy,searchBy)
 
-
+// Count total items depends on search for pagination
+const totalItems = dueSercice.count(searchBy)
 
    res.status(200).json({
        status:200,
