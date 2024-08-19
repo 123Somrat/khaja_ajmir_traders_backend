@@ -6,7 +6,7 @@ const createDue = asyncHandeler(
   async (req: Request, res: Response, next: NextFunction) => {
     // extract data from req body
     const duePaylode = req.body.dueData;
-
+    
     // Call due Service for create a due
     const createdDueInfo = await dueService.createDue(duePaylode);
 

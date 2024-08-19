@@ -1,4 +1,5 @@
 import createDue from "./createDue";
+import allDues from "./allDues";
 
 
-export  = {createDue}
+export  = { allDues , createDue , }
