@@ -62,10 +62,15 @@ const allDues = async (
 };
 
 
+/**
+ * 
+ * @param searchBy 
+ * @returns totalItems
+ */
 const count =async (searchBy:string)=>{
  const filter = {sellerName:{$regex:searchBy,$options:'i'}}
- const data =await dueModel.countDocuments(filter)
- console.log(data)
+ const totalItems=await dueModel.countDocuments(filter)
+ return totalItems
 
 }
 
