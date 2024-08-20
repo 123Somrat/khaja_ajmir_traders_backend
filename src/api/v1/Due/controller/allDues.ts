@@ -25,17 +25,25 @@ const allDues = async (req: Request, res: Response, next: NextFunction) => {
   // get pagination data
   const pagination = query.getPagination({ page, limit, totalItems });
 
-// getHateOs links
+  // getHateOs links
+  const hateOsLinks = query.generateHateOsLinks({
+    url: req.url,
+    path: req.path,
+    query: req.query,
+    hasNext: !!pagination.next,
+    hasPrev: !!pagination.prev,
+  });
 
 
 
-// send response
+  // send response
   res.status(200).json({
     status: 200,
     code: "OK",
     message: "Data retrived succesfully",
     allDue: allDue,
     pagination,
+    hateOsLinks
   });
 };
 

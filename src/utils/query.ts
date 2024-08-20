@@ -1,3 +1,5 @@
+import geneRateQueryString from "./queryStr";
+
 type Tpagination = {
   page: number;
   limit: number;
@@ -7,11 +9,9 @@ type Tpagination = {
   prev?: number;
 };
 
-
-
 /**
- * 
- * @param param0 
+ *
+ * @param param0
  * @returns pagination data
  */
 const getPagination = ({ page, limit, totalItems }: Tpagination) => {
@@ -40,4 +40,48 @@ const getPagination = ({ page, limit, totalItems }: Tpagination) => {
   return pagination;
 };
 
-export = { getPagination };
+
+
+
+
+type Tlinks = {
+  self: string;
+  next?: string;
+  prev?: string;
+};
+
+/**
+ * 
+ * @param param0 
+ * @returns links
+ */
+const generateHateOsLinks = ({
+  url = "/",
+  path = "",
+  query = {},
+  hasNext = false,
+  hasPrev = false,
+  page = 1,
+}) => {
+  let next;
+  let prev;
+  const links: Tlinks = {
+    self: url,
+    next,
+    prev,
+  };
+
+  if (hasNext) {
+    const queryString = geneRateQueryString({ ...query, page: page + 1 });
+    links.next = `${path}?${queryString}`;
+  }
+
+  if (hasPrev) {
+    const queryString = geneRateQueryString({ ...query });
+    links.prev = `${path}?${queryString}`;
+  }
+
+  return links;
+};
+
+export = { getPagination, generateHateOsLinks };
