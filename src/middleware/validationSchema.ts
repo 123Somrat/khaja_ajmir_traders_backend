@@ -1,53 +1,67 @@
+
 import { Request, Response, NextFunction } from "express";
 import dueValidationSchma from "../models/due/dueValidationSchema";
+import {  ZodEffects, ZodObject } from 'zod';
+import asyncHandeler from "../utils/asyncHandeler";
 
-const requestValidateSchema = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const haveToValidateData = req.body.dueData;
+const requestValidateSchema = (schma:ZodObject<any> | ZodEffects<ZodObject<any>>)=>{
 
-  const isValidated = dueValidationSchma.safeParse(haveToValidateData);
+     return async(
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
 
-  if (isValidated.error?.errors[0].path.length === 0) {
-    const errors = [
-      {
-        path: "buyerName",
-        message: "BuyName can not be empty",
-      },
-      {
-        path: "sellerName",
-        message: "Seller name can not empty",
-      },
-      {
-        path: "buyingPrice",
-        message: "Number must be greater than 0",
-      },
-      {
-        path: "buyingDate",
-        message: "Buying date can not be smaller then today"
-    },
-    {
-        path: "expiredDate",
-        message: "Expired date can not be smaller then today"
-    }
-    ];
+      // extract data from request body
+      const haveToValidateData = req.body.dueData;
+      
 
-    return res.status(400).json({ staus: 400, code: "Bad request", errors });
-  }
+      // Validating req body data
+      const isValidated = await schma.safeParseAsync(haveToValidateData);
+    
+        
+        // If req body is empty then throw a error
+      if (isValidated.error?.errors[0].path.length === 0) {
+        const errorsKey = Object.keys(haveToValidateData)
+        const errors = errorsKey.map(err=>({path:err,message:`${err} is reqired`}))
+        return res.status(400).json({ staus: 400, code: "Bad request", errors });
 
-  if (!isValidated.success) {
-    const errors = isValidated.error?.errors.map((error) => {
-      return {
-        path: error.path[error.path.length - 1],
-        message: error.message,
-      };
-    });
-    return res.status(400).json({ staus: 400, code: "Bad request", errors });
-  } else {
-    next();
-  }
-};
+      }
+
+      // Throwing error
+      if (!isValidated.success) {
+        const errors = isValidated.error?.errors.map((error) => {
+          return {
+            path: error.path[error.path.length - 1],
+            message: error.message,
+          };
+        });
+        return res.status(400).json({ staus: 400, code: "Bad request", errors });
+      } else {
+        next();
+}
+
+
+}
+    
+    
+
+
+
+
+
+
+
+
+  
+  };
+
+
+
+
+
+
+
+
 
 export default requestValidateSchema;
