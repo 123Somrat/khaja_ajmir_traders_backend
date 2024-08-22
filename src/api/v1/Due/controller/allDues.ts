@@ -5,7 +5,7 @@ import query from "../../../../utils/query";
 
 const allDues = async (req: Request, res: Response, next: NextFunction) => {
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
+  const limit = Number(req.query.limit) || 2;
   const sortType = (req.query.sort as string) || "dsc";
   const sortBy = (req.query.sortBy as string) || "date";
   const searchBy = (req.query.searchBy as string) || "";
@@ -41,8 +41,8 @@ const allDues = async (req: Request, res: Response, next: NextFunction) => {
     status: 200,
     code: "OK",
     message: "Data retrived succesfully",
-    allDue: allDue,
-    pagination,
+    data: allDue,
+    meta:pagination,
     hateOsLinks
   });
 };
