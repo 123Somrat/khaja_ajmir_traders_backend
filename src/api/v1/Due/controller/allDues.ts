@@ -5,9 +5,9 @@ import query from "../../../../utils/query";
 
 const allDues = async (req: Request, res: Response, next: NextFunction) => {
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 2;
+  const limit = Number(req.query.limit) || 5;
   const sortType = (req.query.sort as string) || "dsc";
-  const sortBy = (req.query.sortBy as string) || "date";
+  const sortBy = (req.query.sortBy as string) || "expiredDate";
   const searchBy = (req.query.searchBy as string) || "";
 
   // Call allDues service for getting all dues from db

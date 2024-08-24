@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import dueModel from "../../models/due/dueSchema";
 import dueType from "../../models/due/dueTypes";
 import HttpError from "../../utils/customError";
@@ -39,15 +40,17 @@ const allDues = async (
   searchBy: string
 ) => {
   // Retriveing data depends on search by
+  const today = dayjs().format('YYYY-MM-DD')
+  console.log(today)
   const filter = searchBy
     ? { sellerName: { $regex: searchBy, $options: "i" } }
-    : {};
+    : {expiredDate:{$gt:today}};
 
   try {
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
-      .sort(sortType)
+      .sort(sortBy)
       .skip(page * limit - limit)
       .limit(limit);
 
