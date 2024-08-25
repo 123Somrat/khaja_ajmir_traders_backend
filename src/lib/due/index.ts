@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import dueModel from "../../models/due/dueSchema";
 import dueType from "../../models/due/dueTypes";
 import HttpError from "../../utils/customError";
+import { SortObject } from "../../types/types";
 
 /**
  *
@@ -41,16 +42,24 @@ const allDues = async (
 ) => {
   // Retriveing data depends on search by
   const today = dayjs().format('YYYY-MM-DD')
-  console.log(today)
+
   const filter = searchBy
     ? { sellerName: { $regex: searchBy, $options: "i" } }
     : {expiredDate:{$gt:today}};
 
+
+
+ // Constructu sort object 
+const sort:SortObject = {}
+ sort[sortBy] = sortType==='asc' ? 1 : -1;
+ 
+
   try {
+    
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
-      .sort(sortBy)
+      .sort(sort)
       .skip(page * limit - limit)
       .limit(limit);
 
