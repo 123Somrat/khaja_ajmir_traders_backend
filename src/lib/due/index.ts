@@ -23,14 +23,13 @@ const createDue = async (duePaylode: dueType) => {
   }
 };
 
-
 /**
- * 
- * @param page 
- * @param limit 
- * @param sortType 
- * @param sortBy 
- * @param searchBy 
+ *
+ * @param page
+ * @param limit
+ * @param sortType
+ * @param sortBy
+ * @param searchBy
  * @returns Created due
  */
 const allDues = async (
@@ -41,21 +40,17 @@ const allDues = async (
   searchBy: string
 ) => {
   // Retriveing data depends on search by
-  const today = dayjs().format('YYYY-MM-DD')
+  const today = dayjs().format("YYYY-MM-DD");
 
   const filter = searchBy
     ? { sellerName: { $regex: searchBy, $options: "i" } }
-    : {expiredDate:{$gt:today}};
+    : { expiredDate: { $gt: today } };
 
-
-
- // Constructu sort object 
-const sort:SortObject = {}
- sort[sortBy] = sortType==='asc' ? 1 : -1;
- 
+  // Construct sort object
+  const sort: SortObject = {};
+  sort[sortBy] = sortType === "asc" ? 1 : -1;
 
   try {
-    
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
@@ -73,20 +68,15 @@ const sort:SortObject = {}
   }
 };
 
-
 /**
- * 
- * @param searchBy 
+ *
+ * @param searchBy
  * @returns totalItems
  */
-const count =async (searchBy:string)=>{
- const filter = {sellerName:{$regex:searchBy,$options:'i'}}
- const totalItems=await dueModel.countDocuments(filter)
- return totalItems
+const count = async (searchBy: string) => {
+  const filter = { sellerName: { $regex: searchBy, $options: "i" } };
+  const totalItems = await dueModel.countDocuments(filter);
+  return totalItems;
+};
 
-}
-
-
-
-
-export = { createDue, allDues , count };
+export = { createDue, allDues, count };

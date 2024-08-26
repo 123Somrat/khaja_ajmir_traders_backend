@@ -10,8 +10,6 @@ const allDues = async (req: Request, res: Response, next: NextFunction) => {
   const sortBy = (req.query.sortBy as string) || "expiredDate";
   const searchBy = (req.query.searchBy as string) || "";
 
-
-  
   // Call allDues service for getting all dues from db
   const allDue = await dueService.allDues(
     page,
@@ -36,16 +34,14 @@ const allDues = async (req: Request, res: Response, next: NextFunction) => {
     hasPrev: !!pagination.prev,
   });
 
-
-
   // send response
   res.status(200).json({
     status: 200,
     code: "OK",
     message: "Data retrived succesfully",
     data: allDue,
-    meta:pagination,
-    hateOsLinks
+    meta: pagination,
+    hateOsLinks,
   });
 };
 
