@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import dueModel from "../../models/due/dueSchema";
-import dueType from "../../models/due/dueTypes";
 import HttpError from "../../utils/customError";
-import { SortObject } from "../../types/types";
+import dueType, { SortObject } from "../../types/types";
+import { Types } from "mongoose";
 
 /**
  *
@@ -70,6 +70,33 @@ const allDues = async (
 
 /**
  *
+ * @param dueId
+ * @returns due
+ */
+const getSingleDue = async (dueId: string) => {
+  try {
+    const due = await dueModel.findById(dueId);
+
+    if (!due) {
+      throw new HttpError(404, "Not found ", "No data found");
+    }
+
+    return due;
+  } catch (err) {
+    if (err instanceof HttpError) {
+      throw new HttpError(err.status, err.code, err.message);
+    } else {
+      throw new HttpError(
+        500,
+        "Internal server error",
+        "An unexpected error occurred"
+      );
+    }
+  }
+};
+
+/**
+ *
  * @param searchBy
  * @returns totalItems
  */
@@ -79,4 +106,4 @@ const count = async (searchBy: string) => {
   return totalItems;
 };
 
-export = { createDue, allDues, count };
+export = { allDues, createDue, getSingleDue, count };
