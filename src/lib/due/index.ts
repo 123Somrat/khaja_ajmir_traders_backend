@@ -4,6 +4,8 @@ import HttpError from "../../utils/customError";
 import dueType, { SortObject } from "../../types/types";
 import mongoose, { Types } from "mongoose";
 import expireDueService from "../expiredDue";
+
+
 /**
  ** Create a due
  * @param duePaylode \
@@ -118,12 +120,11 @@ const getSingleDue = async (dueId: string) => {
 };
 
 /**
- * ! Delete dues
+ * ! Delete due
  * @param dueIds
  */
 
-const deleteADue = async (dueIds: Types.ObjectId[] | Types.ObjectId) => {
-  console.log(dueIds);
+const deleteADue = async (dueIds: Types.ObjectId[] | string) => {
   const deletedInfo = await dueModel.deleteMany({ _id: { $in: dueIds } });
   return deletedInfo;
 };
