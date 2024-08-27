@@ -74,6 +74,7 @@ const allDues = async (
 
   
 
+    
  
 
 
@@ -91,6 +92,31 @@ const allDues = async (
     );
   }
 };
+
+
+/**
+ * ! Delete dues
+ * @param dueIds 
+ */
+
+const deleteADue =async (dueIds:[]|string)=>{
+
+  const deletedInfo = await dueModel.deleteMany({_id:{$in:dueIds}})
+  
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * * Get a single due
