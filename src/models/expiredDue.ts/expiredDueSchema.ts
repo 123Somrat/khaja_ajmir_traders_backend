@@ -24,6 +24,6 @@ const expiredDueSchema = new Schema<dueType>({
   },
 });
 
-const expiredDueModel = model("expiredDuesModel", expiredDueSchema);
+const expiredDueModel = model("expiredDues", expiredDueSchema);
 
 export default expiredDueModel;

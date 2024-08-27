@@ -3,7 +3,7 @@ import dueModel from "../../models/due/dueSchema";
 import HttpError from "../../utils/customError";
 import dueType, { SortObject } from "../../types/types";
 import mongoose, { Types } from "mongoose";
-
+import expireDueService from "../expiredDue";
 /**
  ** Create a due
  * @param duePaylode \
@@ -18,7 +18,7 @@ const createDue = async (duePaylode: dueType) => {
     throw new HttpError(
       500,
       "Internal server error",
-      "Opps something wrong on our side"
+      "An unexpected error occurred"
     );
   }
 };
@@ -39,21 +39,17 @@ const allDues = async (
   sortBy: string,
   searchBy: string
 ) => {
-  
- // Create a seassion
- const session = await mongoose.startSession()
-   session.startTransaction()
-
-
+  // Create a seassion
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
   // get today Date
   const today = dayjs().format("YYYY-MM-DD");
 
-
   // Query for filter
   const filter = searchBy
     ? { sellerName: { $regex: searchBy, $options: "i" } }
-    : {} ;
+    : {};
 
   // Construct sort object
   const sort: SortObject = {};
@@ -65,65 +61,34 @@ const allDues = async (
       .find(filter)
       .sort(sort)
       .skip(page * limit - limit)
-      .limit(limit).session(session);
-
+      .limit(limit)
+      .session(session);
 
     // filtering due dependes on date because i will insert the expired due in db
-   const haveTimeDues = allDues.filter((due)=>due.expiredDate>today);
-   const expiredDue = allDues.filter((due)=>due.expiredDate<today);
+    const haveTimeDues = allDues.filter((due) => due.expiredDate > today);
+    const expiredDue = allDues.filter((due) => due.expiredDate < today);
 
-  
-     if(expiredDue.length>0){
-       
-
-
-
-
-     }
-
-    
- 
-
-
-
-
-
-
+     // Checking expired due lenght for is there any expired due have or not
+    if (expiredDue.length > 0) {
+      // insert the expired dues in db
+      const insertedExpireDues = await expireDueService.expiredDues(expiredDue);
+      // expired due id
+      const expiredDueIds = expiredDue.map((due) => due._id);
+      // call deleteADue service for delete expired dues
+      const dueDeleted = await deleteADue(expiredDueIds);
+    }
+    // Commit transaction
+    await session.commitTransaction();
+    session.endSession();
 
     return haveTimeDues;
-  } catch (err) {
-    throw new HttpError(
-      500,
-      "Internal server error",
-      "Opps something wrong on our side"
-    );
+
+  } catch (err: any) {
+    await session.abortTransaction();
+    session.endSession();
+    throw new HttpError(err.status, err.code, err.message);
   }
 };
-
-
-/**
- * ! Delete dues
- * @param dueIds 
- */
-
-const deleteADue =async (dueIds:[]|string)=>{
-
-  const deletedInfo = await dueModel.deleteMany({_id:{$in:dueIds}})
-  
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * * Get a single due
@@ -153,23 +118,33 @@ const getSingleDue = async (dueId: string) => {
 };
 
 /**
+ * ! Delete dues
+ * @param dueIds
+ */
+
+const deleteADue = async (dueIds: Types.ObjectId[] | Types.ObjectId) => {
+  console.log(dueIds);
+  const deletedInfo = await dueModel.deleteMany({ _id: { $in: dueIds } });
+  return deletedInfo;
+};
+
+/**
  * * Count the document depends on search query
  * @param searchBy
  * @returns totalItems
  */
 const count = async (searchBy: string) => {
-
   // get today Date
-    const today = dayjs().format("YYYY-MM-DD");
+  const today = dayjs().format("YYYY-MM-DD");
 
   // filter query
   const filter = searchBy
-  ? { sellerName: { $regex: searchBy, $options: "i" } }
-  : {expiredDate:{$gt:today}} ;
+    ? { sellerName: { $regex: searchBy, $options: "i" } }
+    : { expiredDate: { $gt: today } };
 
   // Counting item depends on filter query
   const totalItems = await dueModel.countDocuments(filter);
-   
+
   return totalItems;
 };
 
