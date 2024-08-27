@@ -5,7 +5,7 @@ import dueType, { SortObject } from "../../types/types";
 import mongoose, { Types } from "mongoose";
 
 /**
- *
+ ** Create a due
  * @param duePaylode \
  * @returns
  */
@@ -24,7 +24,7 @@ const createDue = async (duePaylode: dueType) => {
 };
 
 /**
- *
+ * * Get all dues
  * @param page
  * @param limit
  * @param sortType
@@ -73,6 +73,7 @@ const allDues = async (
    const expiredDue = allDues.filter((due)=>due.expiredDate<today);
 
   
+
  
 
 
@@ -92,7 +93,7 @@ const allDues = async (
 };
 
 /**
- *
+ * * Get a single due
  * @param dueId
  * @returns due
  */
@@ -119,7 +120,7 @@ const getSingleDue = async (dueId: string) => {
 };
 
 /**
- *
+ * * Count the document depends on search query
  * @param searchBy
  * @returns totalItems
  */
