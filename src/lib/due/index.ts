@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import dueModel from "../../models/due/dueSchema";
 import HttpError from "../../utils/customError";
 import dueType, { SortObject } from "../../types/types";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 /**
  *
@@ -39,12 +39,21 @@ const allDues = async (
   sortBy: string,
   searchBy: string
 ) => {
-  // Retriveing data depends on search by
+  
+ // Create a seassion
+ const session = await mongoose.startSession()
+   session.startTransaction()
+
+
+
+  // get today Date
   const today = dayjs().format("YYYY-MM-DD");
 
+
+  // Query for filter
   const filter = searchBy
     ? { sellerName: { $regex: searchBy, $options: "i" } }
-    : { expiredDate: { $gt: today } };
+    : {} ;
 
   // Construct sort object
   const sort: SortObject = {};
@@ -56,9 +65,23 @@ const allDues = async (
       .find(filter)
       .sort(sort)
       .skip(page * limit - limit)
-      .limit(limit);
+      .limit(limit).session(session);
 
-    return allDues;
+
+    // filtering due dependes on date because i will insert the expired due in db
+   const haveTimeDues = allDues.filter((due)=>due.expiredDate>today);
+   const expiredDue = allDues.filter((due)=>due.expiredDate<today);
+
+  
+ 
+
+
+
+
+
+
+
+    return haveTimeDues;
   } catch (err) {
     throw new HttpError(
       500,
@@ -101,8 +124,18 @@ const getSingleDue = async (dueId: string) => {
  * @returns totalItems
  */
 const count = async (searchBy: string) => {
-  const filter = { sellerName: { $regex: searchBy, $options: "i" } };
+
+  // get today Date
+    const today = dayjs().format("YYYY-MM-DD");
+
+  // filter query
+  const filter = searchBy
+  ? { sellerName: { $regex: searchBy, $options: "i" } }
+  : {expiredDate:{$gt:today}} ;
+
+  // Counting item depends on filter query
   const totalItems = await dueModel.countDocuments(filter);
+   
   return totalItems;
 };
 
