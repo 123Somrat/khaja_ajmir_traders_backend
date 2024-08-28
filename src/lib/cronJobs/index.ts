@@ -18,7 +18,9 @@ cron.schedule(
       // Insert and delete due
       if (expiredDue.length > 0) {
         const insertedExpiredDue = await expiredDueModel.insertMany(expiredDue);
-       
+        const deletedExpiredDueFromDueModel = await dueModel.deleteMany({
+            _id: { $in: haveToDeleteDueFromDueModle },
+          });
       }
     } catch (error) {
       console.error("Error executing cron job:", error);
