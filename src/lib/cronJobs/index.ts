@@ -1,7 +1,16 @@
 import cron from "node-cron";
 import dueModel from "../../models/due/dueSchema";
 import dayjs from "dayjs";
-import expiredDueModel from "../../models/expiredDue.ts/expiredDueSchema";
+import expiredDueService from '../expiredDue'
+import dueService from '../due'
+
+
+
+/**
+ * * Run after every 6 hours
+ * * Automatically Insert the expired due in expiredDue model
+ * ! Delete the expired due from due model
+ */
 
 cron.schedule(
   "* */6 * * *",
@@ -17,10 +26,11 @@ cron.schedule(
 
       // Insert and delete due
       if (expiredDue.length > 0) {
-        const insertedExpiredDue = await expiredDueModel.insertMany(expiredDue);
-        const deletedExpiredDueFromDueModel = await dueModel.deleteMany({
-            _id: { $in: haveToDeleteDueFromDueModle },
-          });
+        // Called expiredDue service
+        const insertedExpiredDue = await expiredDueService.expiredDues(expiredDue)
+  
+         // call the deleteDueService
+        const deletedExpiredDueFromDueModel = await dueService.deleteDue(haveToDeleteDueFromDueModle)
       }
     } catch (error) {
       console.error("Error executing cron job:", error);

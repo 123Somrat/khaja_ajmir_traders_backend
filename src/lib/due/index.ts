@@ -76,7 +76,7 @@ const allDues = async (
       // expired due id
       const expiredDueIds = expiredDue.map((due) => due._id);
       // call deleteADue service for delete expired dues
-      const dueDeleted = await deleteADue(expiredDueIds);
+      const dueDeleted = await deleteDue(expiredDueIds);
     }
     // Commit transaction
     await session.commitTransaction();
@@ -122,7 +122,7 @@ const getSingleDue = async (dueId: string) => {
  * @param dueIds
  */
 
-const deleteADue = async (dueIds: Types.ObjectId[] | string) => {
+const deleteDue = async (dueIds: Types.ObjectId[] | string) => {
   const deletedInfo = await dueModel.deleteMany({ _id: { $in: dueIds } });
   return deletedInfo;
 };
@@ -147,4 +147,4 @@ const count = async (searchBy: string) => {
   return totalItems;
 };
 
-export = { allDues, createDue, getSingleDue, count };
+export = { allDues, createDue, getSingleDue , deleteDue , count };
