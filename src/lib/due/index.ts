@@ -67,25 +67,9 @@ const allDues = async (
 
     // filtering due dependes on date because i will insert the expired due in db
     const haveTimeDues = allDues.filter((due) => due.expiredDate > today);
-    const expiredDue = allDues.filter((due) => due.expiredDate < today);
-
-    // Checking expired due lenght for is there any expired due have or not
-    if (expiredDue.length > 0) {
-      // insert the expired dues in db
-      const insertedExpireDues = await expireDueService.expiredDues(expiredDue);
-      // expired due id
-      const expiredDueIds = expiredDue.map((due) => due._id);
-      // call deleteADue service for delete expired dues
-      const dueDeleted = await deleteDue(expiredDueIds);
-    }
-    // Commit transaction
-    await session.commitTransaction();
-    session.endSession();
 
     return haveTimeDues;
   } catch (err: any) {
-    await session.abortTransaction();
-    session.endSession();
     throw new HttpError(err.status, err.code, err.message);
   }
 };
@@ -147,4 +131,4 @@ const count = async (searchBy: string) => {
   return totalItems;
 };
 
-export = { allDues, createDue, getSingleDue , deleteDue , count };
+export = { allDues, createDue, getSingleDue, deleteDue, count };
