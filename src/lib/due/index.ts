@@ -5,7 +5,6 @@ import dueType, { SortObject } from "../../types/types";
 import mongoose, { Types } from "mongoose";
 import expireDueService from "../expiredDue";
 
-
 /**
  ** Create a due
  * @param duePaylode \
@@ -70,7 +69,7 @@ const allDues = async (
     const haveTimeDues = allDues.filter((due) => due.expiredDate > today);
     const expiredDue = allDues.filter((due) => due.expiredDate < today);
 
-     // Checking expired due lenght for is there any expired due have or not
+    // Checking expired due lenght for is there any expired due have or not
     if (expiredDue.length > 0) {
       // insert the expired dues in db
       const insertedExpireDues = await expireDueService.expiredDues(expiredDue);
@@ -84,7 +83,6 @@ const allDues = async (
     session.endSession();
 
     return haveTimeDues;
-
   } catch (err: any) {
     await session.abortTransaction();
     session.endSession();

@@ -18,7 +18,6 @@ const middleWare = (app: Application) => {
   app.use(router);
 
   app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-     console.log('error occured in expired due service',err)
     res.status(err.status).json({
       status: err.status || 500,
       code: err.code || "Internal server error",
