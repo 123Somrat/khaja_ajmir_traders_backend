@@ -15,25 +15,22 @@ import HttpError from "../../utils/customError";
 cron.schedule(
   "0 */6 * * *",
   async () => {
-    console.log("Cron jobs running",dayjs().minute(),dayjs().hour());
-
     // Create a seassion
     const session = await mongoose.startSession();
     session.startTransaction();
 
     try {
       const today = dayjs();
-      console.log('inside try block')
+      console.log("inside try block");
       // retrive the expired due from db
       const expiredDue = await dueModel
         .find({ ecpiredDate: { $lt: today } })
         .session(session);
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
-        
+
       // Insert and delete due
       if (expiredDue.length > 0) {
-        
         // Called expiredDue service
         const insertedExpiredDue = await expiredDueService.expiredDues(
           expiredDue
