@@ -1,12 +1,16 @@
-import { RequestHandler } from "express"
-import asyncHandeler from "../../../../utils/asyncHandeler"
+import { RequestHandler } from "express";
+import asyncHandeler from "../../../../utils/asyncHandeler";
+import expiredDueService from "../../../../lib/expiredDue";
+const allExpiredDues: RequestHandler = asyncHandeler(async (req, res, next) => {
+  // Call getAllExpiredDues service
+  const expiredDues = await expiredDueService.getAllExpiredDues();
 
-const allExpiredDues:RequestHandler = asyncHandeler(async(req,res,next)=>{
+  res.status(200).json({
+    status: 200,
+    code: "Ok",
+    messege: "ExpiredDues retrived succesfully",
+    data: expiredDues,
+  });
+});
 
-       console.log('Working fine')
-
-
-})
-
-
-export default allExpiredDues
+export default allExpiredDues;
