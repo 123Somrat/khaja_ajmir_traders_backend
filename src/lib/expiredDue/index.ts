@@ -3,6 +3,12 @@ import expiredDueModel from "../../models/expiredDue.ts/expiredDueSchema";
 import dueType from "../../types/types";
 import HttpError from "../../utils/customError";
 
+
+/**
+ * 
+ * @param expiredDues 
+ * @returns expiredDues
+ */
 const expiredDues = async (expiredDues: dueType[]) => {
   try {
     const expiredDue = await expiredDueModel.insertMany(expiredDues);
@@ -14,5 +20,19 @@ const expiredDues = async (expiredDues: dueType[]) => {
     }
   }
 };
+
+
+
+const getAllExpiredDues = ()=>{
+
+
+
+  
+}
+
+
+
+
+
 
 export = { expiredDues };
