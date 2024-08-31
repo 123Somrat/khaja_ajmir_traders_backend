@@ -18,17 +18,17 @@ cron.schedule(
     // Create a seassion
     const session = await mongoose.startSession();
     session.startTransaction();
-
+     
     try {
-      const today = dayjs();
+      const today = dayjs().format('YYYY-MM-YY');
       console.log("inside try block");
       // retrive the expired due from db
       const expiredDue = await dueModel
-        .find({ ecpiredDate: { $lt: today } })
+        .find({ expiredDate: { $lt: today } })
         .session(session);
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
-
+         
       // Insert and delete due
       if (expiredDue.length > 0) {
         // Called expiredDue service
