@@ -1,3 +1,4 @@
+import { optional } from 'zod';
 import { model, Schema } from "mongoose";
 import dueType from "./dueTypes";
 
@@ -14,6 +15,9 @@ const dueSchema = new Schema<dueType>(
     buyingPrice: {
       type: Number,
       required: true,
+    },
+    sellingPrice:{
+       type:Number
     },
     buyingDate: {
       type: String,

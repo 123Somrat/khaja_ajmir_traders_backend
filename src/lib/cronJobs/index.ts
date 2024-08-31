@@ -32,9 +32,7 @@ cron.schedule(
       // Insert and delete due
       if (expiredDue.length > 0) {
         // Called expiredDue service
-        const insertedExpiredDue = await expiredDueService.expiredDues(
-          expiredDue
-        );
+        const insertedExpiredDue = await expiredDueService.expiredDues(expiredDue);
 
         // call the deleteDueService
         const deletedExpiredDueFromDueModel = await dueService.deleteDue(

@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import expiredDueModel from "../../models/expiredDue.ts/expiredDueSchema";
 import dueType from "../../types/types";
 import HttpError from "../../utils/customError";
+import { ObjectId } from "mongodb";
 
 /**
  *
@@ -20,7 +21,7 @@ const expiredDues = async (expiredDues: dueType[]) => {
   }
 };
 
-/* 
+/*
  * @returns allEXpiredDues
  */
 const getAllExpiredDues = async () => {
@@ -37,4 +38,38 @@ const getAllExpiredDues = async () => {
   }
 };
 
-export = { expiredDues, getAllExpiredDues };
+const patchExpiredDues = async (paylode: {
+  id: string;
+  sellingPrice: number;
+}) => {
+  try {
+    // Checking given id due exeist or not
+    const isExeist = await expiredDueModel.findById(paylode.id);
+
+    if (!isExeist) {
+      throw new HttpError(404, "Not found", "No data found");
+    }
+   
+    // Update expiredDue document
+    const updatedExpiredDue =await expiredDueModel.updateOne({_id:new ObjectId(paylode.id)},{$set:{sellingPrice:paylode.sellingPrice}})
+    
+
+
+    if (updatedExpiredDue.modifiedCount === 0) {
+      throw new HttpError(400, "Bad Request", "Document not updated");
+    }
+
+
+      //Todo have to dekete the document
+     if(updatedExpiredDue.modifiedCount===1){
+        console.log('')
+     }
+
+  } catch (err) {
+    if (err instanceof HttpError) {
+      throw new HttpError(err.status, err.code, err.message);
+    }
+  }
+};
+
+export = { expiredDues, getAllExpiredDues, patchExpiredDues };

@@ -12,7 +12,7 @@ import expireDueService from "../expiredDue";
  */
 const createDue = async (duePaylode: dueType) => {
   try {
-    const createdDueInfo = await dueModel.create(duePaylode);
+    const createdDueInfo = await dueModel.create({...duePaylode,sellingPrice:''});
 
     return createdDueInfo;
   } catch (err) {
