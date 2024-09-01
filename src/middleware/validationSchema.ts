@@ -13,13 +13,13 @@ const requestValidateSchema = (schma:ZodObject<any> | ZodEffects<ZodObject<any>>
     ) => {
 
       // extract data from request body
-      const haveToValidateData = req.body.dueData;
-      
+      const haveToValidateData = req.body.data;
+        
 
       // Validating req body data
       const isValidated = await schma.safeParseAsync(haveToValidateData);
-    
-        
+         
+       
         // If req body is empty then throw a error
       if (isValidated.error?.errors[0].path.length === 0) {
         const errorsKey = Object.keys(haveToValidateData)

@@ -53,7 +53,7 @@ const patchExpiredDues = async (paylode: {
     // Update expiredDue document
     const updatedExpiredDue =await expiredDueModel.updateOne({_id:new ObjectId(paylode.id)},{$set:{sellingPrice:paylode.sellingPrice}})
     
-
+   
 
     if (updatedExpiredDue.modifiedCount === 0) {
       throw new HttpError(400, "Bad Request", "Document not updated");
@@ -62,7 +62,7 @@ const patchExpiredDues = async (paylode: {
 
       //Todo have to dekete the document
      if(updatedExpiredDue.modifiedCount===1){
-        console.log('')
+        return 'somrat'
      }
 
   } catch (err) {

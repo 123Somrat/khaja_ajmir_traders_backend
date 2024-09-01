@@ -4,19 +4,17 @@ import asyncHandeler from "../../../../utils/asyncHandeler";
 
 
 const patchExpiredDues:RequestHandler = asyncHandeler(async(req,res,next)=>{
- 
+       
      // Extract expiredDyes id
      const patchExpiredDuesId = req.params.id
-     const sellingPrice = Number(req.body.data.sellingPrice)
-
+     const sellingPrice = Number(req.body.sellingPrice)
 
     
+   
 
    // call expiredDueService 
    const dueUpdated =await  expiredDueService.patchExpiredDues({id:patchExpiredDuesId,sellingPrice:sellingPrice})
-
-
-
+        //console.log(dueUpdated)
 
 
 })
