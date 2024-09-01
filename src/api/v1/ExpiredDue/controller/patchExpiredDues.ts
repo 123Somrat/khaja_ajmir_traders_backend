@@ -7,7 +7,7 @@ const patchExpiredDues:RequestHandler = asyncHandeler(async(req,res,next)=>{
        
      // Extract expiredDyes id
      const patchExpiredDuesId = req.params.id
-     const sellingPrice = Number(req.body.sellingPrice)
+     const sellingPrice = Number(req.body.data.sellingPrice)
 
     
    
