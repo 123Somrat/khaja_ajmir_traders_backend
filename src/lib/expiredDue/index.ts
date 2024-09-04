@@ -3,6 +3,8 @@ import expiredDueModel from "../../models/expiredDue/expiredDueSchema";
 import dueType from "../../types/types";
 import HttpError from "../../utils/customError";
 import { ObjectId } from "mongodb";
+import soldOutDueService from "../soldOutDue";
+
 
 /**
  *
@@ -39,6 +41,14 @@ const getAllExpiredDues = async () => {
   }
 };
 
+
+/**
+ * 
+ * @param paylode 
+ * * Updated the expired due selling price
+ * * After updated succesfully then insert the expired due into SoldOut due
+ * * After succesfully insert the due into sold out due then delete it from expired dues
+ */
 const patchExpiredDues = async (paylode: {
   id: string;
   sellingPrice: number;
@@ -64,10 +74,23 @@ const patchExpiredDues = async (paylode: {
     if (!updatedExpiredDue) {
       throw new HttpError(400, "Bad Request", "Document not updated");
     }
-
-    // If due updated succesfully then delete iot from expired due
+    // If due updated succesfully then insert The due into soldOur due scchema
     if (updatedExpiredDue) {
-      const deletedSoldDue = await deleteAexpiredDue(paylode.id);
+      const soldOutDue =await soldOutDueService.soldOutDues({buyerName: updatedExpiredDue.buyerName, 
+        sellerName: updatedExpiredDue.sellerName,
+        buyingPrice: updatedExpiredDue.buyingPrice,
+        sellingPrice: updatedExpiredDue.sellingPrice,
+        buyingDate:updatedExpiredDue.buyingDate,
+        expiredDate:updatedExpiredDue.expiredDate
+      })
+
+
+      //After insert the due into soldOut due schema then Deleted dues from expired dues
+      if(soldOutDue){
+         const deletedSoldDue = await deleteAexpiredDue(paylode.id);
+        
+      }
+    
     }
   } catch (err) {
     if (err instanceof HttpError) {
@@ -88,9 +111,9 @@ const deleteAexpiredDue = async (id: string) => {
     if (!isExiest) {
       throw new HttpError(404, "Not found", "No data found");
     }
-
+     console.log('habe to delete id',id)
     const deletedSoldDue = expiredDueModel.findByIdAndDelete(id);
-
+      
     return deletedSoldDue;
   } catch (err) {
     console.log(err);

@@ -30,7 +30,7 @@ const soldOutDueSchema = new Schema<dueType>({
 
 })
 
-const soldOutDueSchemas = model<dueType>('soldOutDueSchema',soldOutDueSchema);
+const soldOutDueModel = model<dueType>('soldOutDue',soldOutDueSchema);
 
 
-export default soldOutDueSchema;
+export default soldOutDueModel;
