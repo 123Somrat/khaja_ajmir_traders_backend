@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 
 export type SortOrder = 1 | -1;
 
@@ -7,7 +7,7 @@ export type SortObject =  {
  }
 
  type dueType = {
-  _id:string | Types.ObjectId;
+  _id:Types.ObjectId;
   buyerName: string;
   sellerName: string;
   buyingDate: string;

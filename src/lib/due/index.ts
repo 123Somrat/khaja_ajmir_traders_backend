@@ -67,7 +67,7 @@ const allDues = async (
 
     // filtering due dependes on date because i will insert the expired due in db
     const haveTimeDues = allDues.filter((due) => due.expiredDate > today);
-
+    
     return haveTimeDues;
   } catch (err: any) {
     throw new HttpError(err.status, err.code, err.message);

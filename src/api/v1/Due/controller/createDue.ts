@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import dueService from "../../../../lib/due";
 import asyncHandeler from "../../../../utils/asyncHandeler";
+import expiredDue from "../../../../lib/expiredDue";
 
 const createDue = asyncHandeler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -9,7 +10,7 @@ const createDue = asyncHandeler(
     
     // Call due Service for create a due
     const createdDueInfo = await dueService.createDue(duePaylode);
-
+     
     // send a response with created data
     res.status(201).json({
       status: 201,

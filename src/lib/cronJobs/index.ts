@@ -5,6 +5,7 @@ import expiredDueService from "../expiredDue";
 import dueService from "../due";
 import mongoose from "mongoose";
 import HttpError from "../../utils/customError";
+import dueType from "../../types/types";
 
 /**
  * * Run after every 6 hours
@@ -13,31 +14,37 @@ import HttpError from "../../utils/customError";
  */
 
 cron.schedule(
-  "0 */6 * * *",
+  "0 */3 * * *",
   async () => {
     // Create a seassion
     const session = await mongoose.startSession();
     session.startTransaction();
-     
+
     try {
-      const today = dayjs().format('YYYY-MM-YY');
-      console.log("inside try block");
+      const today = dayjs().format("YYYY-MM-DD");
+   
+      console.log(today)
       // retrive the expired due from db
       const expiredDue = await dueModel
         .find({ expiredDate: { $lt: today } })
         .session(session);
+
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
-         
+    
+
+    
       // Insert and delete due
       if (expiredDue.length > 0) {
         // Called expiredDue service
-        const insertedExpiredDue = await expiredDueService.expiredDues(expiredDue);
-
+        //const insertedExpiredDue = await expiredDueService.expiredDues(expiredDue);
+        //console.log("insertedDue block", insertedExpiredDue);
         // call the deleteDueService
         const deletedExpiredDueFromDueModel = await dueService.deleteDue(
           haveToDeleteDueFromDueModle
         );
+
+        console.log("due deletd sucessfully", deletedExpiredDueFromDueModel);
       }
       // Commit transaction
       await session.commitTransaction();

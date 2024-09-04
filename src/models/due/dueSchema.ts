@@ -16,9 +16,6 @@ const dueSchema = new Schema<dueType>(
       type: Number,
       required: true,
     },
-    sellingPrice:{
-       type:Number
-    },
     buyingDate: {
       type: String,
       required: true,

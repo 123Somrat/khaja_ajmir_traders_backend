@@ -9,12 +9,13 @@ import { ObjectId } from "mongodb";
  * @param expiredDues
  * @returns expiredDues
  */
-const expiredDues = async (expiredDues: dueType[]) => {
+const expiredDues = async (expiredDues: dueType[] ) => {
   try {
-    const expiredDue = await expiredDueModel.insertMany(expiredDues);
-
+    const expiredDue = await expiredDueModel.create(expiredDues);
+     console.log('from expired due service',expiredDue)
     return expiredDue;
   } catch (err: any) {
+    console.log('from expired dues error block',err)
     if (err.code === 11000) {
       throw new HttpError(11000, "Dulicate key error", "item already exeist");
     }

@@ -1,6 +1,7 @@
 
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import dueType from "../../types/types";
+import { ObjectId } from "mongodb";
 
 
 
@@ -18,7 +19,6 @@ const expiredDueSchema = new Schema<dueType
     type: Number,
     required: true,
   },
-  
   buyingDate: {
     type: String,
     required: true,
