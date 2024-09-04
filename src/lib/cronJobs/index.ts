@@ -14,7 +14,7 @@ import dueType from "../../types/types";
  */
 
 cron.schedule(
-  "0 */3 * * *",
+  "*/1 * * * *",
   async () => {
     // Create a seassion
     const session = await mongoose.startSession();
@@ -22,29 +22,45 @@ cron.schedule(
 
     try {
       const today = dayjs().format("YYYY-MM-DD");
-   
-      console.log(today)
+
       // retrive the expired due from db
       const expiredDue = await dueModel
         .find({ expiredDate: { $lt: today } })
         .session(session);
 
+      // console.log('from expiredDate',expiredDue)
+
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
-    
 
-    
+      //Formated data like expiredDue sche,a
+      const formatedDataLikeExpiredDueSchema: dueType[] = expiredDue.map(
+        ({ buyerName, sellerName, buyingPrice, buyingDate, expiredDate }) => {
+          return {
+            buyerName: buyerName,
+            sellerName: sellerName,
+            buyingPrice: buyingPrice,
+            sellingPrice: 0,
+            buyingDate: buyingDate,
+            expiredDate: expiredDate,
+          };
+        }
+      );
+
       // Insert and delete due
       if (expiredDue.length > 0) {
         // Called expiredDue service
-        //const insertedExpiredDue = await expiredDueService.expiredDues(expiredDue);
-        //console.log("insertedDue block", insertedExpiredDue);
-        // call the deleteDueService
-        const deletedExpiredDueFromDueModel = await dueService.deleteDue(
-          haveToDeleteDueFromDueModle
+        const insertedExpiredDue = await expiredDueService.expiredDues(
+          formatedDataLikeExpiredDueSchema
         );
 
-        console.log("due deletd sucessfully", deletedExpiredDueFromDueModel);
+        // Delete thoses document if expiredDues add succesfully
+        if ((insertedExpiredDue?.length as number) > 0) {
+          // call the deleteDueService
+          const deletedExpiredDueFromDueModel = await dueService.deleteDue(
+            haveToDeleteDueFromDueModle
+          );
+        }
       }
       // Commit transaction
       await session.commitTransaction();

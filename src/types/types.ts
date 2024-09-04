@@ -7,7 +7,6 @@ export type SortObject =  {
  }
 
  type dueType = {
-  _id:Types.ObjectId;
   buyerName: string;
   sellerName: string;
   buyingDate: string;
