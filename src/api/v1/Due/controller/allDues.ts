@@ -22,11 +22,11 @@ const allDues = async (req: Request, res: Response, next: NextFunction) => {
   );
 
 
-   console.log('i am froms serachBy',searchBy)
+
 
   // Count total items depends on search for pagination
   const totalItems = await dueService.count(searchBy);
-    console.log(totalItems)
+    
   // get pagination data
   const pagination = query.getPagination({ page, limit, totalItems });
 
