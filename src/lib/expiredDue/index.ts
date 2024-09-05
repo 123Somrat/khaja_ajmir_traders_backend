@@ -52,6 +52,7 @@ const getAllExpiredDues = async () => {
 const patchExpiredDues = async (paylode: {
   id: string;
   sellingPrice: number;
+  sellingDate:string
 }) => {
   try {
     // Update expiredDue document
@@ -81,7 +82,8 @@ const patchExpiredDues = async (paylode: {
         buyingPrice: updatedExpiredDue.buyingPrice,
         sellingPrice: updatedExpiredDue.sellingPrice,
         buyingDate:updatedExpiredDue.buyingDate,
-        expiredDate:updatedExpiredDue.expiredDate
+        expiredDate:updatedExpiredDue.expiredDate,
+        sellingDate:paylode.sellingDate
       })
 
 

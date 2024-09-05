@@ -26,8 +26,12 @@ const soldOutDueSchema = new Schema<dueType>({
      expiredDate:{
          type:String,
          required:true
+     },
+     sellingDate:{
+         type : String,
+         required:true
      }
-
+    
 })
 
 const soldOutDueModel = model<dueType>('soldOutDue',soldOutDueSchema);

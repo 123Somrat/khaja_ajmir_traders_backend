@@ -13,5 +13,6 @@ export type SortObject =  {
   sellingPrice:number;
   expiredDate: string;
   buyingPrice: number;
+  sellingDate?:string
 };
 export default dueType;
