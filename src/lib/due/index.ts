@@ -56,6 +56,9 @@ const allDues = async (
   const sort: SortObject = {};
   sort[sortBy] = sortType === "asc" ? 1 : -1;
 
+
+
+
   try {
     // retriveing all dues from db
     const allDues = await dueModel
@@ -65,8 +68,11 @@ const allDues = async (
       .limit(limit)
       .session(session);
 
+
+
+
     // filtering due dependes on date because i will insert the expired due in db
-    const haveTimeDues = allDues.filter((due) => due.expiredDate > today);
+    const haveTimeDues = allDues.filter((due) => due.expiredDate >= today);
     
     return haveTimeDues;
   } catch (err: any) {
@@ -116,14 +122,14 @@ const deleteDue = async (dueIds: Types.ObjectId[] | string) => {
  * @param searchBy
  * @returns totalItems
  */
-const count = async (searchBy: string) => {
+const count = async (searchBy: string ) => {
   // get today Date
   const today = dayjs().format("YYYY-MM-DD");
 
   // filter query
   const filter = searchBy
     ? { sellerName: { $regex: searchBy, $options: "i" } }
-    : { expiredDate: { $gt: today } };
+    : { expiredDate: { $gte: today } };
 
   // Counting item depends on filter query
   const totalItems = await dueModel.countDocuments(filter);

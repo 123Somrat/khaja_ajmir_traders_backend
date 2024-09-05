@@ -14,7 +14,7 @@ import dueType from "../../types/types";
  */
 
 cron.schedule(
-  "*/1 * * * *",
+  "0 */6 * * *",
   async () => {
     // Create a seassion
     const session = await mongoose.startSession();
@@ -28,7 +28,7 @@ cron.schedule(
         .find({ expiredDate: { $lt: today } })
         .session(session);
 
-      // console.log('from expiredDate',expiredDue)
+
 
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
