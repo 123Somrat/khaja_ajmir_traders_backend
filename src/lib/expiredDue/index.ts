@@ -66,6 +66,9 @@ const patchExpiredDues = async (paylode: {
       }
     );
 
+ 
+
+
     // If due not found throw not found error
     if (!updatedExpiredDue) {
       throw new HttpError(404, "Not found", "No data found");
@@ -86,11 +89,12 @@ const patchExpiredDues = async (paylode: {
         sellingDate:paylode.sellingDate
       })
 
-
+     
       //After insert the due into soldOut due schema then Deleted dues from expired dues
       if(soldOutDue){
          const deletedSoldDue = await deleteAexpiredDue(paylode.id);
-        
+      
+          return deletedSoldDue
       }
     
     }
@@ -113,7 +117,7 @@ const deleteAexpiredDue = async (id: string) => {
     if (!isExiest) {
       throw new HttpError(404, "Not found", "No data found");
     }
-     console.log('habe to delete id',id)
+     
     const deletedSoldDue = expiredDueModel.findByIdAndDelete(id);
       
     return deletedSoldDue;

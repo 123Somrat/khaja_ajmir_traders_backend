@@ -10,6 +10,7 @@ import HttpError from "../../utils/customError";
  */
 
 const soldOutDues =async (paylode:dueType)=>{
+  
   try{
     const soldOutDue = await soldOutDueModel.create(paylode);
      if(!soldOutDue){

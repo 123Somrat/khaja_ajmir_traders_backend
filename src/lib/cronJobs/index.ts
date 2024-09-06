@@ -6,6 +6,7 @@ import dueService from "../due";
 import mongoose from "mongoose";
 import HttpError from "../../utils/customError";
 import dueType from "../../types/types";
+import sendEmail from "../email";
 
 /**
  * * Run after every 6 hours
@@ -19,7 +20,8 @@ cron.schedule(
     // Create a seassion
     const session = await mongoose.startSession();
     session.startTransaction();
-
+     const data = await sendEmail();
+     console.log('i am inside cron jobs',data)
     try {
       const today = dayjs().format("YYYY-MM-DD");
 
