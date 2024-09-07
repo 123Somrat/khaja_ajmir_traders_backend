@@ -1,31 +1,37 @@
-import nodemailer from 'nodemailer'
+import dayjs from 'dayjs';
+import mailgun from 'mailgun-js'
 
 
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for port 465, false for other ports
-    auth: {
-      user: "maddison53@ethereal.email",
-      pass: "jn7jnAPss4f63QBp6D",
-    },
+const mailGun_domain = process.env.MAILGUN_DOMAIN  as string;
+const mailGun_api_Key = process.env.MAILGUN_API_KEY as string;
+
+
+const mg = mailgun({ apiKey: mailGun_api_Key, domain: mailGun_domain });
+
+
+
+
+
+const sendEmail =async (content:string)=>{
+  // Email data
+const info = {
+  from: "Excited User <paymaster@sandbox326bd2bf8ad34bbdb6116dd010e56ad9.mailgun.org>", // sender address
+  to: "bigziauddin@gmail.com", // list of receivers
+  subject: 'Product Expiry Notification',
+  html: content
+  
+};
+
+  const confirnation = mg.messages().send(info, function (error, body) {
+    if (error) {
+      console.error('Error:', error);
+    } else {
+      console.log('Email sent:', body);
+    }
   });
 
 
-
-const sendEmail =async ()=>{
-
-// send mail with defined transport object
-const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-    to: "bigziauddin@gmail.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  });
-
- return info
 }
 
 

@@ -6,6 +6,7 @@ import dueService from "../due";
 import mongoose from "mongoose";
 import HttpError from "../../utils/customError";
 import dueType from "../../types/types";
+import generateEmailContent from "../../utils/generateEmailContent";
 import sendEmail from "../email";
 
 /**
@@ -20,8 +21,7 @@ cron.schedule(
     // Create a seassion
     const session = await mongoose.startSession();
     session.startTransaction();
-     const data = await sendEmail();
-     console.log('i am inside cron jobs',data)
+
     try {
       const today = dayjs().format("YYYY-MM-DD");
 
@@ -29,8 +29,6 @@ cron.schedule(
       const expiredDue = await dueModel
         .find({ expiredDate: { $lt: today } })
         .session(session);
-
-
 
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
@@ -62,6 +60,14 @@ cron.schedule(
           const deletedExpiredDueFromDueModel = await dueService.deleteDue(
             haveToDeleteDueFromDueModle
           );
+
+          // genarte email templates
+          const emailContent = generateEmailContent(
+            haveToDeleteDueFromDueModle
+          );
+
+          // sendInd the templates
+          const info = await sendEmail(emailContent);
         }
       }
       // Commit transaction
