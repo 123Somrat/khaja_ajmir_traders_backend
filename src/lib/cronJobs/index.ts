@@ -68,6 +68,7 @@ cron.schedule(
 
           // sendInd the templates
           const info = await sendEmail(emailContent);
+           
         }
       }
       // Commit transaction

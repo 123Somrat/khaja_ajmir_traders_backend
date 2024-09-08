@@ -2,9 +2,7 @@ import asyncHandeler from "../../../../utils/asyncHandeler";
 import { Request, Response, NextFunction } from "express";
 import dueService from "../../../../lib/due";
 import query from "../../../../utils/query";
-import dayjs from "dayjs";
-import dueModel from "../../../../models/due/dueSchema";
-import sendEmail from "../../../../lib/email";
+
 
 const allDues = async (req: Request, res: Response, next: NextFunction) => {
   const page = Number(req.query.page) || 1;

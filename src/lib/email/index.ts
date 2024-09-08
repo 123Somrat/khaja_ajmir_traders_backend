@@ -16,7 +16,7 @@ const mg = mailgun({ apiKey: mailGun_api_Key, domain: mailGun_domain });
 const sendEmail =async (content:string)=>{
   // Email data
 const info = {
-  from: "Excited User <paymaster@sandbox326bd2bf8ad34bbdb6116dd010e56ad9.mailgun.org>", // sender address
+  from: "<paymaster@sandbox326bd2bf8ad34bbdb6116dd010e56ad9.mailgun.org>", // sender address
   to: "bigziauddin@gmail.com", // list of receivers
   subject: 'Product Expiry Notification',
   html: content

@@ -14,7 +14,7 @@ import soldOutDueService from "../soldOutDue";
 const expiredDues = async (expiredDues: dueType[]) => {
   try {
     const expiredDue = await expiredDueModel.create(expiredDues);
-    console.log("from expired due service", expiredDue);
+    
     return expiredDue;
   } catch (err: any) {
     console.log("from expired dues error block", err);
