@@ -1,6 +1,7 @@
 import express from 'express'
 import {controller  as dueController} from '../api/v1/Due';
 import { controller as expiredDueController } from '../api/v1/ExpiredDue';
+import { controller as sellRecordController } from '../api/v1/SellRecords'
 import requestValidateSchema from '../middleware/validationSchema';
 import dueValidationSchma from '../models/due/dueValidationSchema';
 
@@ -25,6 +26,11 @@ router.route('/api/v1/expiredDues')
 // * for patch  delete a single expired due
 router.route('/api/v1/expiredDues/:id')
 .patch(expiredDueController.patchExpiredDues)
+
+
+// * Get all sell Records
+router.route('/api/v1/sellRecords')
+.get(sellRecordController.getAllSellRecords)
 
 
 export default router;
