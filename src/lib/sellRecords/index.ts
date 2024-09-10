@@ -14,11 +14,11 @@ const getAllSellRecords = async ({
   sortType,
   searchBy,
 }: TQueryParams) => {
+  
   // Search by MOnth or Year
-  const searchByMonthOrYears =
-    searchBy.split("-").length === 2
-      ? dayjs(searchBy).format("YYYY-MM")
-      : dayjs(searchBy).format("YYYY");
+  const searchByMonthOrYears = dayjs(searchBy, "YYYY-MMMM", true).isValid()
+    ? dayjs(searchBy).format("YYYY-MM")
+    : dayjs(searchBy).format("YYYY");
 
   // filter data
   const filter = searchBy

@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 const getAllSellRecords = asyncHandeler(async (req, res, next) => {
 
 
-    const currentMonth = dayjs().format('YYYY-MM')
+    const currentMonth = dayjs().format('YYYY-MMMM')
         
       const {page,limit,sortBy,sortType,searchBy} = req.query;
       const queryParams = {
