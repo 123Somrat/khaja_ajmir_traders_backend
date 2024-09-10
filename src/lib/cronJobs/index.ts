@@ -8,6 +8,7 @@ import HttpError from "../../utils/customError";
 import dueType from "../../types/types";
 import generateEmailContent from "../../utils/generateEmailContent";
 import sendEmail from "../email";
+import io from "../..";
 
 /**
  * * Run after every 6 hours
@@ -16,7 +17,7 @@ import sendEmail from "../email";
  */
 
 cron.schedule(
-  "0 */6 * * *",
+  "*/1 * * * *",
   async () => {
     // Create a seassion
     const session = await mongoose.startSession();
@@ -68,7 +69,12 @@ cron.schedule(
 
           // sendInd the templates
           const info = await sendEmail(emailContent);
-           
+
+          // send live notification
+          io.on("connection", () => {
+            console.log("server is listening inside cron");
+            io.emit("expiredDueNotifications", haveToDeleteDueFromDueModle);
+          });
         }
       }
       // Commit transaction

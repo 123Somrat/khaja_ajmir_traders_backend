@@ -1,4 +1,4 @@
-import { ObjectId, Types } from "mongoose";
+
 
 export type SortOrder = 1 | -1;
 
@@ -15,4 +15,19 @@ export type SortObject =  {
   buyingPrice: number;
   sellingDate?:string
 };
-export default dueType;
+
+
+export type TQueryParams = {
+  page: number,
+  limit: number,
+  sortBy: string,
+  sortType:string,
+  searchBy: string
+}
+
+
+
+
+
+
+export default dueType
