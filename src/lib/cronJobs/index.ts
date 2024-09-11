@@ -16,13 +16,20 @@ import io from "../..";
  * ! Delete the expired due from due model
  */
 
+
+
+
+
+
+
+
 cron.schedule(
   "*/1 * * * *",
   async () => {
     // Create a seassion
     const session = await mongoose.startSession();
     session.startTransaction();
-
+       console.log('cron jobs  running')
     try {
       const today = dayjs().format("YYYY-MM-DD");
 
@@ -30,7 +37,7 @@ cron.schedule(
       const expiredDue = await dueModel
         .find({ expiredDate: { $lt: today } })
         .session(session);
-
+      
       // Create a id array to which due have to delete
       const haveToDeleteDueFromDueModle = expiredDue.map((due) => due._id);
 
@@ -48,6 +55,7 @@ cron.schedule(
         }
       );
 
+    
       // Insert and delete due
       if (expiredDue.length > 0) {
         // Called expiredDue service
@@ -71,10 +79,8 @@ cron.schedule(
           const info = await sendEmail(emailContent);
 
           // send live notification
-          io.on("connection", () => {
-            console.log("server is listening inside cron");
             io.emit("expiredDueNotifications", haveToDeleteDueFromDueModle);
-          });
+        
         }
       }
       // Commit transaction

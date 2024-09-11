@@ -20,7 +20,9 @@ const io = new Server(server,{
 })
 
 
-
+io.on('connection',()=>{
+    console.log('connection with user')
+})
 
 
 
