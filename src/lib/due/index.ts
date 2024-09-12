@@ -49,8 +49,8 @@ const allDues = async (
 
   // Query for filter
   const filter = searchBy
-    ? { sellerName: { $regex: searchBy, $options: "i" } }
-    : {};
+    ? { sellerName: { $regex: searchBy, $options: "i" },expiredDate:{$gte:today}}
+    : {expiredDate:{$gte:today}};
 
   // Construct sort object
   const sort: SortObject = {};
@@ -70,11 +70,11 @@ const allDues = async (
 
 
 
-
-    // filtering due dependes on date because i will insert the expired due in db
-    const haveTimeDues = allDues.filter((due) => due.expiredDate >= today);
     
-    return haveTimeDues;
+    // filtering due dependes on date because i will insert the expired due in db
+   // const haveTimeDues = allDues.filter((due) => due.expiredDate >= today);
+    
+    return allDues;
   } catch (err: any) {
     throw new HttpError(err.status, err.code, err.message);
   }

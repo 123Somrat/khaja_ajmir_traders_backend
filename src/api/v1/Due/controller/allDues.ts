@@ -21,7 +21,7 @@ const allDues = async (req: Request, res: Response, next: NextFunction) => {
   );
 
 
-  
+
 
   // Count total items depends on search for pagination
   const totalItems = await dueService.count(searchBy);
