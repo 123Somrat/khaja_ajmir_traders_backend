@@ -5,9 +5,9 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
 
 
     const currentMonth = dayjs().format('YYYY-MMMM')
-        console.log(req.query)
+    
       const {page,limit,sortBy,sortType,searchBy} = req.query;
-     console.log(searchBy)
+  
       const queryParams = {
          page:Number(page) | 1,
          limit:Number(limit) | 5,

@@ -14,20 +14,29 @@ const getAllSellRecords = async ({
   sortType,
   searchBy,
 }: TQueryParams) => {
-  
-
-   
-
+  // format the search field
+  const formatedSearchBy = searchBy.split(" ").join("-");
+  const currentmonth = dayjs().month() + 1;
+  const currentYear = dayjs().year();
 
   // Search by MOnth or Year
-  const searchByMonthOrYears = dayjs(searchBy, "YYYY-MMMM", true).isValid()
+  const searchByMonthOrYears = dayjs(
+    formatedSearchBy,
+    "YYYY-MMMM",
+    true
+  ).isValid()
     ? dayjs(searchBy).format("YYYY-MM")
     : dayjs(searchBy).format("YYYY");
 
   // filter data
   const filter = searchBy
     ? { sellingDate: { $regex: searchByMonthOrYears, $options: "i" } }
-    : {};
+    : {
+        sellingDate: {
+          $regex: `${currentYear}-0${currentmonth}`,
+          $options: "i",
+        },
+      };
 
   try {
     // Retrived sell records and retur it
