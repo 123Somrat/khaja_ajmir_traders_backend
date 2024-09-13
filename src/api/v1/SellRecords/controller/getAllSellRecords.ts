@@ -11,7 +11,7 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
 
   const { page, limit, sortBy, sortType, searchBy } = req.query;
 
-  console.log(page === "undefined");
+
   const queryParams = {
     page: typeof page == "undefined" ? 1 : (Number(page) as number),
     limit: typeof limit == "undefined" ? 1 : (Number(limit) as number),
@@ -25,6 +25,9 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
     queryParams
   );
 
+
+
+  
   //soldOutDueModel: mongoose.Model<dueType, {}, {}, {}, mongoose.Document<unknown, {}, dueType> & dueType & { _id: Types.ObjectId; }, any>, searchBy: unknown,
   // Counting documents from db depends on search
   const totalItems = (await count(
@@ -44,7 +47,7 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
     code: "Ok",
     message: "Sell records retrive successfully",
     data: allSellRecords,
-    pagination,
+    meta:pagination,
   });
 });
 

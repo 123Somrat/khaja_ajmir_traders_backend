@@ -9,7 +9,7 @@ import geneRateQueryString from "./queryStr";
  */
 const getPagination = ({ page, limit, totalItems }: Tpagination) => {
 
-  console.log(page,limit,totalItems)
+
   const totalPage = Math.ceil(totalItems / limit);
 
   let next;
