@@ -3,6 +3,7 @@ import soldOutDueModel from "../../models/soldOutDue/soldOutDueSchema";
 import { TQueryParams } from "../../types/types";
 import HttpError from "../../utils/customError";
 
+
 /**
  *
  * @returns Sell Records
@@ -45,6 +46,7 @@ const getAllSellRecords = async ({
       .sort(sortBy)
       .skip(page * limit - limit)
       .limit(5);
+
 
     return allSellRecords;
   } catch (err) {

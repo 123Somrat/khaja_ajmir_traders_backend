@@ -122,7 +122,7 @@ const deleteDue = async (dueIds: Types.ObjectId[] | string) => {
  * @param searchBy
  * @returns totalItems
  */
-const count = async (searchBy: string ) => {
+const count = async (searchBy: string) => {
   // get today Date
   const today = dayjs().format("YYYY-MM-DD");
 

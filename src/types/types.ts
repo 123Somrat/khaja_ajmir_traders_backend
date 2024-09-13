@@ -26,6 +26,16 @@ export type TQueryParams = {
 }
 
 
+export type Tpagination = {
+  page: number;
+  limit: number;
+  totalPage?: number;
+  totalItems: number;
+  next?: number;
+  prev?: number;
+};
+
+
 
 
 

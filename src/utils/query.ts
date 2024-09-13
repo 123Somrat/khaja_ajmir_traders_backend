@@ -1,13 +1,6 @@
+import { Tpagination } from "../types/types";
 import geneRateQueryString from "./queryStr";
 
-type Tpagination = {
-  page: number;
-  limit: number;
-  totalPage?: number;
-  totalItems: number;
-  next?: number;
-  prev?: number;
-};
 
 /**
  *
@@ -15,6 +8,8 @@ type Tpagination = {
  * @returns pagination data
  */
 const getPagination = ({ page, limit, totalItems }: Tpagination) => {
+
+  console.log(page,limit,totalItems)
   const totalPage = Math.ceil(totalItems / limit);
 
   let next;
