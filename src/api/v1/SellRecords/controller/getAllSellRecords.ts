@@ -5,16 +5,14 @@ import soldOutDueModel from "../../../../models/soldOutDue/soldOutDueSchema";
 import count from "../../../../utils/documentsCount";
 import query from "../../../../utils/query";
 
-
 const getAllSellRecords = asyncHandeler(async (req, res, next) => {
   const currentMonth = dayjs().format("YYYY-MMMM");
 
   const { page, limit, sortBy, sortType, searchBy } = req.query;
 
-
   const queryParams = {
     page: typeof page == "undefined" ? 1 : (Number(page) as number),
-    limit: typeof limit == "undefined" ? 1 : (Number(limit) as number),
+    limit: typeof limit == "undefined" ? 5 : (Number(limit) as number),
     sortBy: (sortBy as string) ?? "sellingPrice",
     sortType: (sortType as string) ?? "dsc",
     searchBy: (searchBy as string) ?? currentMonth,
@@ -25,9 +23,6 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
     queryParams
   );
 
-
-
-  
   //soldOutDueModel: mongoose.Model<dueType, {}, {}, {}, mongoose.Document<unknown, {}, dueType> & dueType & { _id: Types.ObjectId; }, any>, searchBy: unknown,
   // Counting documents from db depends on search
   const totalItems = (await count(
@@ -47,7 +42,7 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
     code: "Ok",
     message: "Sell records retrive successfully",
     data: allSellRecords,
-    meta:pagination,
+    meta: pagination,
   });
 });
 

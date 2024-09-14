@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 import soldOutDueModel from "../../models/soldOutDue/soldOutDueSchema";
-import { TQueryParams } from "../../types/types";
+import { SortObject, TQueryParams } from "../../types/types";
 import HttpError from "../../utils/customError";
-
 
 /**
  *
@@ -39,14 +38,17 @@ const getAllSellRecords = async ({
         },
       };
 
+  // Sorting pattern
+  const sort: SortObject = {};
+  sort[sortBy] = sortType === "asc" ? 1 : -1;
+
   try {
     // Retrived sell records and retur it
     const allSellRecords = await soldOutDueModel
       .find(filter)
-      .sort(sortBy)
+      .sort(sort)
       .skip(page * limit - limit)
-      .limit(5);
-
+      .limit(limit);
 
     return allSellRecords;
   } catch (err) {
