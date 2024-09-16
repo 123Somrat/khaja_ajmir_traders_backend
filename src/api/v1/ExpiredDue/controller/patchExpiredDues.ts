@@ -9,6 +9,9 @@ const patchExpiredDues: RequestHandler = asyncHandeler(
     const sellingPrice = Number(req.body.data.sellingPrice);
     const sellingDate = req.body.data.sellingDate;
 
+
+
+
     // call expiredDueService
     const dueUpdated = await expiredDueService.patchExpiredDues({
       id: patchExpiredDuesId,
@@ -16,7 +19,7 @@ const patchExpiredDues: RequestHandler = asyncHandeler(
       sellingDate: sellingDate,
     });
 
-   
+  
     // Send the response
     res.status(200).json({
       status: 200,

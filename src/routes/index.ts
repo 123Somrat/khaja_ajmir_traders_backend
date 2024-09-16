@@ -25,6 +25,7 @@ router.route('/api/v1/expiredDues')
 
 // * for patch  delete a single expired due
 router.route('/api/v1/expiredDues/:id')
+.put(expiredDueController.updateExpiredDueDate)
 .patch(expiredDueController.patchExpiredDues)
 
 
