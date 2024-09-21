@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 
-let dbConnetionsUrl = process.env.DBCONNECTION_URL as string;
+let dbConnetionsUrl = process.env.DBCONNECTION_URL as string || '';
+
 dbConnetionsUrl = dbConnetionsUrl.replace(
   "<username>",
   process.env.DB_USERNAME as string
