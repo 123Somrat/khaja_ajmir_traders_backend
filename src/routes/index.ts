@@ -1,12 +1,17 @@
 import express from 'express'
 import {controller  as dueController} from '../api/v1/Due';
 import { controller as expiredDueController } from '../api/v1/ExpiredDue';
-import { controller as sellRecordController } from '../api/v1/SellRecords'
+import { controller as sellRecordController } from '../api/v1/SellRecords';
+import { controller as userController } from '../api/v1/User';
 import requestValidateSchema from '../middleware/validationSchema';
 import dueValidationSchma from '../models/due/dueValidationSchema';
 
 
 const router = express.Router()
+
+
+// Auth route
+router.route('/api/v1/register').post(userController.registerUser)
 
 
 // ** All Due related routes
