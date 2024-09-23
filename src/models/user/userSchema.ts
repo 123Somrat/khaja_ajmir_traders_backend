@@ -13,10 +13,6 @@ const User = new Schema<TUser>({
   password: {
     type: String,
     required: true,
-  },
-  confirmPassword: {
-    type: String,
-    required: true,
   }
 });
 

@@ -1,6 +1,7 @@
 import userModel from "../../models/user/userSchema";
 import TUser from "../../models/user/userType";
 import HttpError from "../../utils/customError";
+import { generateHash } from "../../utils/hashPassword";
 
 /**
  *
@@ -18,9 +19,19 @@ const isUserExeist = async (email: string) => {
  * @param paylode
  * @returns registerUserData
  */
-const createUser = async (paylode: TUser) => {
+const createUser = async ({ name, email, password }: TUser) => {
   try {
-    const createdUser = await userModel.create(paylode);
+    const hashPassword = await generateHash(password);
+
+    const transformedPaylodeAfterPasswordHashed = {
+      name,
+      email,
+      password: hashPassword,
+    };
+
+    const createdUser = await userModel.create(
+      transformedPaylodeAfterPasswordHashed
+    );
 
     return createdUser;
   } catch (err) {

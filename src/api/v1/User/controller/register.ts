@@ -8,6 +8,7 @@ const register = asyncHandeler(async(req,res,next)=>{
  // Call userRegistretion service for create user
  const user = await authService.register(userInfo)
 
+ 
   res.status(201).json({
       status:201,
       code:'Created succesfully',
