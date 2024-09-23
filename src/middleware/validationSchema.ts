@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from "express";
 import dueValidationSchma from "../models/due/dueValidationSchema";
 import {  ZodEffects, ZodObject } from 'zod';
-import asyncHandeler from "../utils/asyncHandeler";
+
 
 const requestValidateSchema = (schma:ZodObject<any> | ZodEffects<ZodObject<any>>)=>{
 
@@ -15,6 +15,7 @@ const requestValidateSchema = (schma:ZodObject<any> | ZodEffects<ZodObject<any>>
       // extract data from request body
       const haveToValidateData = req.body.data;
         
+
 
       // Validating req body data
       const isValidated = await schma.safeParseAsync(haveToValidateData);

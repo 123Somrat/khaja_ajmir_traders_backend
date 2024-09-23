@@ -5,13 +5,14 @@ import { controller as sellRecordController } from '../api/v1/SellRecords';
 import { controller as userController } from '../api/v1/User';
 import requestValidateSchema from '../middleware/validationSchema';
 import dueValidationSchma from '../models/due/dueValidationSchema';
+import zodUserValidationSchema from '../models/user/zodUserValidationSchema';
 
 
 const router = express.Router()
 
 
 // Auth route
-router.route('/api/v1/register').post(userController.registerUser)
+router.route('/api/v1/register').post(requestValidateSchema(zodUserValidationSchema),userController.registerUser)
 
 
 // ** All Due related routes
