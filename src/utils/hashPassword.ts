@@ -29,16 +29,9 @@ const matchingHased = async (plainPass: string, hasedPassword: string) => {
     // comapre password
     const isMatched = await bcrypt.compare(plainPass, hasedPassword);
 
-    // throw 401 error for invalid credential
-    if (!isMatched) {
-      throw new HttpError(401, "Unauthorized", "Invalid credentials");
-    }
-
     return isMatched;
   } catch (err) {
-    if (err instanceof HttpError) {
-      throw new HttpError(err.status, err.code, err.message);
-    }
+    console.log(err);
   }
 };
 

@@ -45,6 +45,14 @@ const login = async ({email , password}: { email: string; password: string }) =>
 
     const isPasswordMatched = await matchingHased(password , isUser.password)
     
+    // throw 401 error for invalid credential
+    if (!isPasswordMatched) {
+      throw new HttpError(401, "Unauthorized", "Invalid credentials");
+    }
+
+
+    
+
 
   } catch (err) {
     if (err instanceof HttpError) {
