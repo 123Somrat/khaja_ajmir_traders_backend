@@ -36,7 +36,13 @@ const register = async (paylode: TUser) => {
   }
 };
 
-const login = async ({email , password}: { email: string; password: string }) => {
+
+/**
+ * 
+ * @param { email and password }
+ * @returns {user and jwtToken}
+ */
+const login = async ({email , password}: { email: string; password: string })=> {
   try {
     const isUser = await userService.user(email);
 
@@ -51,10 +57,9 @@ const login = async ({email , password}: { email: string; password: string }) =>
       throw new HttpError(401, "Unauthorized", "Invalid credentials");
     }
 
-   const  token = tokenService.generateToken({name:isUser.name,email:isUser.email})
+   const  token = await tokenService.generateToken({name:isUser.name,email:isUser.email})
      
-
-
+    return { isUser , token }
   } catch (err) {
     if (err instanceof HttpError) {
       throw new HttpError(err.status, err.code, err.message);
