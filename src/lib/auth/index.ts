@@ -1,6 +1,7 @@
 import TUser from "../../models/user/userType";
 import HttpError from "../../utils/customError";
 import { matchingHased } from "../../utils/hashPassword";
+import  tokenService  from "../token";
 import userService from "../user";
 
 /**
@@ -50,8 +51,8 @@ const login = async ({email , password}: { email: string; password: string }) =>
       throw new HttpError(401, "Unauthorized", "Invalid credentials");
     }
 
-
-    
+   const  token = tokenService.generateToken({name:isUser.name,email:isUser.email})
+     
 
 
   } catch (err) {
