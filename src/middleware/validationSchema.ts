@@ -1,7 +1,9 @@
 
 import { Request, Response, NextFunction } from "express";
-import dueValidationSchma from "../models/due/dueValidationSchema";
 import {  ZodEffects, ZodObject } from 'zod';
+import zodUserValidationSchema from "../models/user/zodUserValidationSchema";
+import dueValidationSchma from "../models/due/dueValidationSchema";
+
 
 
 const requestValidateSchema = (schma:ZodObject<any> | ZodEffects<ZodObject<any>>)=>{
@@ -14,16 +16,20 @@ const requestValidateSchema = (schma:ZodObject<any> | ZodEffects<ZodObject<any>>
 
       // extract data from request body
       const haveToValidateData = req.body.data;
+      const schemas = [zodUserValidationSchema,dueValidationSchma]
+      const haveToValidateSchemas = schemas.find(schemas=>schma===schemas)
+        
+     // if user pass empty body or empty data object then chose the schema for throwing error
+     const schema = typeof(req.body || req.body.data) === "undefined" || JSON.stringify(req.body)==="{}"  ? haveToValidateSchemas : haveToValidateData
         
 
-
       // Validating req body data
-      const isValidated = await schma.safeParseAsync(haveToValidateData);
-         
+      const isValidated = await schma.safeParseAsync(schema);
+  
        
-        // If req body is empty then throw a error
+        // If req.body is or req.body.data empty then throw a error with required feild
       if (isValidated.error?.errors[0].path.length === 0) {
-        const errorsKey = Object.keys(haveToValidateData)
+        const errorsKey = Object.keys(haveToValidateData);
         const errors = errorsKey.map(err=>({path:err,message:`${err} is reqired`}))
         return res.status(400).json({ staus: 400, code: "Bad request", errors });
 

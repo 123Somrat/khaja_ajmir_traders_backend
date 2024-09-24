@@ -13,10 +13,9 @@ const register = asyncHandeler(async(req,res,next)=>{
       status:201,
       code:'Created succesfully',
       messege:'User created successfullly',
-      data:'token'
+      data:user
   })
 
 })
-
 
 export default register

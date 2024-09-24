@@ -27,7 +27,8 @@ const zodUserValidationSchema = z
       })
       .min(8,"Password does not match")
   })
-  .refine((userData) => userData.password !==userData.confirmPassword , {
+  .refine((userData) => userData.confirmPassword === userData.password, {
+  
     message: "Password dont match",
     path: ["confirmPassword"],
   });
