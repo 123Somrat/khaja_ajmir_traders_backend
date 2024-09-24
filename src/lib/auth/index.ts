@@ -2,10 +2,9 @@ import TUser from "../../models/user/userType";
 import HttpError from "../../utils/customError";
 import userService from "../user";
 
-
 /**
- * 
- * @param paylode 
+ *
+ * @param paylode
  * @returns Created user
  */
 const register = async (paylode: TUser) => {
@@ -18,18 +17,42 @@ const register = async (paylode: TUser) => {
     }
 
     // Call userService for create user
-    const createdUser = await userService.createUser(paylode)
+    const createdUser = await userService.createUser(paylode);
 
-    return createdUser
-
+    return createdUser;
   } catch (err) {
-      if(err instanceof HttpError){
-          throw new HttpError(err.status,err.code,err.message)
-      }
-      if(err){
-         throw new HttpError(500,'Internal server error',"An unexpected error occured")
-      }
+    if (err instanceof HttpError) {
+      throw new HttpError(err.status, err.code, err.message);
+    }
+    if (err) {
+      throw new HttpError(
+        500,
+        "Internal server error",
+        "An unexpected error occured"
+      );
+    }
   }
 };
 
-export = { register };
+const login = async (paylode: { email: string; password: string }) => {
+  try {
+    const isUser = await userService.isUserExeist(paylode.email);
+
+    if (!isUser) {
+      throw new HttpError(404, "Not Found", "No user found");
+    }
+
+
+
+    
+  } catch (err) {
+    if (err instanceof HttpError) {
+      throw new HttpError(err.status, err.code, err.message);
+    }
+    if(err){
+        throw new HttpError(500,'Internal server error',"An Unexpected error occcured")
+    }
+  }
+};
+
+export = { register, login };
