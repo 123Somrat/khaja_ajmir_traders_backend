@@ -1,5 +1,6 @@
 import TUser from "../../models/user/userType";
 import HttpError from "../../utils/customError";
+import { matchingHased } from "../../utils/hashPassword";
 import userService from "../user";
 
 /**
@@ -34,17 +35,17 @@ const register = async (paylode: TUser) => {
   }
 };
 
-const login = async (paylode: { email: string; password: string }) => {
+const login = async ({email , password}: { email: string; password: string }) => {
   try {
-    const isUser = await userService.isUserExeist(paylode.email);
+    const isUser = await userService.user(email);
 
     if (!isUser) {
       throw new HttpError(404, "Not Found", "No user found");
     }
 
-
-
+    const isPasswordMatched = await matchingHased(password , isUser.password)
     
+
   } catch (err) {
     if (err instanceof HttpError) {
       throw new HttpError(err.status, err.code, err.message);

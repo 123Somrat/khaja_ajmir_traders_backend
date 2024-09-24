@@ -14,6 +14,21 @@ const isUserExeist = async (email: string) => {
   return isUserExeist ? true : false;
 };
 
+
+/**
+ * 
+ * @param email 
+ * @returns user
+ */
+const user = async(email:string)=>{
+
+  const user = await userModel.findOne({ email });
+
+  return user ? user : '';
+
+}
+
+
 /**
  *
  * @param paylode
@@ -43,4 +58,4 @@ const createUser = async ({ name, email, password }: TUser) => {
   }
 };
 
-export = { isUserExeist, createUser };
+export = { isUserExeist, createUser , user};
