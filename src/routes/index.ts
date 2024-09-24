@@ -12,7 +12,8 @@ const router = express.Router()
 
 
 // Auth route
-router.route('/api/v1/register').post(requestValidateSchema(zodUserValidationSchema),userController.registerUser)
+router.route('/api/v1/register').post(requestValidateSchema(zodUserValidationSchema),userController.register)
+router.route('/api/v1/login').post(userController.login)
 
 
 // ** All Due related routes
