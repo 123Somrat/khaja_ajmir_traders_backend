@@ -10,7 +10,8 @@ const login = asyncHandeler(async(req,res,next)=>{
     const userAndToken = await authService.login(userInfo);
     const transFormedUserData = {
          name : userAndToken?.isUser.name,
-         email : userAndToken?.isUser.email
+         email : userAndToken?.isUser.email,
+         role:userAndToken?.isUser.role
     }
      
     

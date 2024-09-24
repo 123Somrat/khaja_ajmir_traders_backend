@@ -7,11 +7,12 @@ const register = asyncHandeler(async (req, res, next) => {
 
   // Call userRegistretion service for create user
   const user = await authService.register(userInfo);
-  const { name, email } = user as TUser;
+  const { name, email, role } = user as TUser;
   // transform user object
   const transFormedUserObject = {
     name,
     email,
+    role
   };
 
   res.status(201).json({
