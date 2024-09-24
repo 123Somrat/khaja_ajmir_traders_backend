@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import dueService from "../../../../lib/due";
 import asyncHandeler from "../../../../utils/asyncHandeler";
-import expiredDue from "../../../../lib/expiredDue";
+
 
 const createDue = asyncHandeler(
   async (req: Request, res: Response, next: NextFunction) => {

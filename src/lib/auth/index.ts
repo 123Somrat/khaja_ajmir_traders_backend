@@ -57,7 +57,7 @@ const login = async ({email , password}: { email: string; password: string })=> 
       throw new HttpError(401, "Unauthorized", "Invalid credentials");
     }
 
-   const  token = await tokenService.generateToken({name:isUser.name,email:isUser.email})
+   const  token = await tokenService.generateToken({name:isUser.name,email:isUser.email,role:isUser.role as string})
      
     return { isUser , token }
   } catch (err) {

@@ -6,6 +6,7 @@ import { controller as userController } from '../api/v1/User';
 import requestValidateSchema from '../middleware/validationSchema';
 import dueValidationSchma from '../models/due/dueValidationSchema';
 import zodUserValidationSchema from '../models/user/zodUserValidationSchema';
+import authenticationMiddleWare from '../middleware/authenticationMiddleWare';
 
 
 const router = express.Router()
@@ -19,7 +20,7 @@ router.route('/api/v1/login').post(userController.login)
 // ** All Due related routes
 router.route('/api/v1/dues')
 .get(dueController.allDues)
-.post(requestValidateSchema(dueValidationSchma),dueController.createDue)
+.post(authenticationMiddleWare,requestValidateSchema(dueValidationSchma),dueController.createDue)
 
 // * for get patch put delete a single due
 router.route('/api/v1/dues/:id')
