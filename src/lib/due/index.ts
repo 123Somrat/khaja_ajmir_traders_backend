@@ -7,11 +7,12 @@ import expireDueService from "../expiredDue";
 
 /**
  ** Create a due
- * @param duePaylode \
+ * @param duePaylode , user
  * @returns
  */
 const createDue = async (duePaylode: dueType) => {
   try {
+     
     const createdDueInfo = await dueModel.create({...duePaylode,sellingPrice:''});
 
     return createdDueInfo;

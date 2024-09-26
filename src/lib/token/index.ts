@@ -1,11 +1,15 @@
 import jwt from "jsonwebtoken";
 
 /**
- * 
- * @param paylode 
+ *
+ * @param paylode
  * @returns token
  */
-const generateToken = async (paylode: {name:string,email:string,role:string}) => {
+const generateToken = async (paylode: {
+  name: string;
+  email: string;
+  role: string;
+}) => {
   const secretKey = process.env.JWT_SECRET as string;
   const options = { expiresIn: 10000 };
 
@@ -14,15 +18,10 @@ const generateToken = async (paylode: {name:string,email:string,role:string}) =>
   return token;
 };
 
-
-
 const verifyToken = async (token: string) => {
- console.log(token)
-  const isVarified = await jwt.decode(token)
-   
+  const isVarified = await jwt.decode(token);
 
-  return isVarified
-
+  return isVarified;
 };
 
 export = { generateToken, verifyToken };

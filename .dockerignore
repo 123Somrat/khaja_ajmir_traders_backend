@@ -1,11 +1,25 @@
-.# Node modules
+# Ignore node_modules directory
 node_modules
 
+# Ignore npm debug log
+npm-debug.log
 
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
 
-# Environment files
+# Ignore local environment configuration files
 .env
+.env.local
 
-# Git files
+# Ignore git files
 .git
 .gitignore
+
+# Ignore logs
+logs
+*.log
+
+# Ignore build artifacts
+dist
+build

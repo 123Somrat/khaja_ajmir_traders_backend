@@ -16,6 +16,7 @@ services:
       - MAILGUN_DOMAIN=${MAILGUN_DOMAIN}
     volumes:
       - .:/app
+      - /app/node_modules/bcrypt/
       - mongoDbData:/data/db
     networks:
       - app_network
