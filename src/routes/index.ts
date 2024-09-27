@@ -24,7 +24,7 @@ router.route('/api/v1/dues')
 
 // * for get patch put delete a single due
 router.route('/api/v1/dues/:id')
-.get(dueController.getSingleDue)
+.get(authenticationMiddleWare,dueController.getSingleDue)
 
 
 // * Expired Due related routes
@@ -33,13 +33,13 @@ router.route('/api/v1/expiredDues')
 
 // * for patch  delete a single expired due
 router.route('/api/v1/expiredDues/:id')
-.put(expiredDueController.updateExpiredDueDate)
-.patch(expiredDueController.patchExpiredDues)
+.put(authenticationMiddleWare,expiredDueController.updateExpiredDueDate)
+.patch(authenticationMiddleWare,expiredDueController.patchExpiredDues)
 
 
 // * Get all sell Records
 router.route('/api/v1/sellRecords')
-.get(sellRecordController.getAllSellRecords)
+.get(authenticationMiddleWare,sellRecordController.getAllSellRecords)
 
 
 export default router;
