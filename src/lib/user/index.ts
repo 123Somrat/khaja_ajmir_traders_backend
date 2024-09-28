@@ -1,5 +1,5 @@
 import userModel from "../../models/user/userSchema";
-import TUser from "../../models/user/userType";
+import { TUser } from "../../models/user/userType";
 import HttpError from "../../utils/customError";
 import { generateHash } from "../../utils/hashPassword";
 

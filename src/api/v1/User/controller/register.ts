@@ -1,6 +1,6 @@
 import asyncHandeler from "../../../../utils/asyncHandeler";
 import authService from "../../../../lib/auth";
-import TUser from "../../../../models/user/userType";
+import { TUser } from "../../../../models/user/userType";
 const register = asyncHandeler(async (req, res, next) => {
   // getting UserInfo from req
   const userInfo = req.body.data;

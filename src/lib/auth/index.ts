@@ -1,4 +1,5 @@
-import TUser from "../../models/user/userType";
+
+import { TUser } from "../../models/user/userType";
 import HttpError from "../../utils/customError";
 import { matchingHased } from "../../utils/hashPassword";
 import  tokenService  from "../token";
@@ -54,6 +55,7 @@ const login = async ({email , password}: { email: string; password: string })=> 
     
     // throw 401 error for invalid credential
     if (!isPasswordMatched) {
+       const res = await isUser.incrementFaildLogin()
       throw new HttpError(401, "Unauthorized", "Invalid credentials");
     }
 
