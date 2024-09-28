@@ -3,7 +3,9 @@ type TUser = {
       email:string,
       password:string,
       role?:string
-      confirmPassword?:string
+      confirmPassword?:string,
+      faildLoginAttempts?:number,
+      lockUntil?: Date
 }
 
 

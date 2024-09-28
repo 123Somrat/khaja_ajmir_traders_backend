@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import TUser from "./userType";
 
+
 const User = new Schema<TUser>({
   name: {
     type: String,
@@ -16,8 +17,17 @@ const User = new Schema<TUser>({
   },
   role:{
      type:String,
+     enum : ['user','admin'],
      required:true,
      default:'user'
+  },
+  faildLoginAttempts:{
+     type:Number,
+     default:0
+  },
+  lockUntil:{
+     type : Date,
+     default : null
   }
 });
 
