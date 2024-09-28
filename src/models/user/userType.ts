@@ -7,7 +7,7 @@ type TUser = {
   role?: string;
   confirmPassword?: string;
   faildLoginAttempts?: number;
-  lockUntil?: Date;
+  lockUntil?: Date | null;
 };
 
 type TUserMethods = {

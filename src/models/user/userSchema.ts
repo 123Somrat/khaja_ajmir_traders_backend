@@ -32,7 +32,7 @@ const User = new Schema<TUser, UserModel, TUserMethods>({
     default: 0,
   },
   lockUntil: {
-    type: Date,
+    type : Date,
     default: null,
   },
 });
@@ -65,6 +65,25 @@ User.method("incrementFaildLogin", async function incrementFaildLogin() {
 
   const data = await this.updateOne(updatedUserObj).exec();
 });
+
+
+// Add resetLogin attempts methods after pass the lock time
+
+User.method('resetLoginAttempts',async function resetLoginAttempts() {
+
+  
+    if((this.lockUntil as Date).getTime()<Date.now()){
+       this.faildLoginAttempts=0,
+       this.lockUntil = null
+       
+    }
+
+
+   const data =await this.save();
+   
+})
+
+
 
 const userModel = model<TUser, UserModel>("user", User);
 

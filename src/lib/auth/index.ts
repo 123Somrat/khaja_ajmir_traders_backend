@@ -53,11 +53,21 @@ const login = async ({email , password}: { email: string; password: string })=> 
 
     const isPasswordMatched = await matchingHased(password , isUser.password)
     
+
+    // Reset the user login attempts
+   if(isUser.lockUntil!==null && (isUser.lockUntil as Date).getTime()<Date.now()){
+      const data = isUser.resetLoginAttempts()
+   }
+
+
     // throw 401 error for invalid credential
     if (!isPasswordMatched) {
        const res = await isUser.incrementFaildLogin()
       throw new HttpError(401, "Unauthorized", "Invalid credentials");
     }
+
+
+
 
    const  token = await tokenService.generateToken({name:isUser.name,email:isUser.email,role:isUser.role as string})
      
