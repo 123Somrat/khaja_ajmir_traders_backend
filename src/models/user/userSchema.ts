@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { TUser, TUserMethods, UserModel } from "./userType";
 import HttpError from "../../utils/customError";
-import dayjs from "dayjs";
+
 
 type UpdatesObject = {
   $inc?: { faildLoginAttempts: number };
@@ -32,11 +32,10 @@ const User = new Schema<TUser, UserModel, TUserMethods>({
     default: 0,
   },
   lockUntil: {
-    type : Date,
+    type: Date,
     default: null,
   },
 });
-
 
 // Add Method for lock user after 3 failed lohin attempts
 User.method("incrementFaildLogin", async function incrementFaildLogin() {
@@ -66,24 +65,15 @@ User.method("incrementFaildLogin", async function incrementFaildLogin() {
   const data = await this.updateOne(updatedUserObj).exec();
 });
 
-
 // Add resetLogin attempts methods after pass the lock time
 
-User.method('resetLoginAttempts',async function resetLoginAttempts() {
+User.method("resetLoginAttempts", async function resetLoginAttempts() {
+  if ((this.lockUntil as Date).getTime() < Date.now()) {
+    (this.faildLoginAttempts = 0), (this.lockUntil = null);
+  }
 
-  
-    if((this.lockUntil as Date).getTime()<Date.now()){
-       this.faildLoginAttempts=0,
-       this.lockUntil = null
-       
-    }
-
-
-   const data =await this.save();
-   
-})
-
-
+  const data = await this.save();
+});
 
 const userModel = model<TUser, UserModel>("user", User);
 
