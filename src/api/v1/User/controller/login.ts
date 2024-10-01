@@ -14,7 +14,7 @@ const login = asyncHandeler(async(req,res,next)=>{
          role:userAndToken?.isUser.role
     }
      
-    console.log(userAndToken?.token)
+
     // Include the token in cookie
     res.cookie('jwtToken',userAndToken?.token,{httpOnly:true,secure:true,maxAge:3600000})
    
