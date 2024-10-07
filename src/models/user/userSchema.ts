@@ -1,7 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TUser, TUserMethods, UserModel } from "./userType";
-import HttpError from "../../utils/customError";
-
+import HttpError from "../../utils/customError"
 
 type UpdatesObject = {
   $inc?: { faildLoginAttempts: number };
