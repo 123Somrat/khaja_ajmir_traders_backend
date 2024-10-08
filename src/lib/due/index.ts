@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import dueModel from "../../models/due/dueSchema";
 import HttpError from "../../utils/customError";
-import dueType, { SortObject } from "../../types/types";
+import dueType, { SortObject, TQueryParams } from "../../types/types";
 import mongoose, { Types } from "mongoose";
 import expireDueService from "../expiredDue";
 
@@ -36,13 +36,15 @@ const createDue = async (duePaylode: dueType) => {
  * @param searchBy
  * @returns all due
  */
-const allDues = async (
-  page: number,
-  limit: number,
-  sortType: string,
-  sortBy: string,
-  searchBy: string
-) => {
+const allDues = async ({
+  page,
+  limit,
+  sortType,
+  sortBy,
+  searchBy,
+}: TQueryParams) => {
+
+  
   // Create a seassion
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -54,7 +56,7 @@ const allDues = async (
   const filter = searchBy
     ? {
         sellerName: { $regex: searchBy, $options: "i" },
-        expiredDate: { $gte: today },
+        
       }
     : { expiredDate: { $gte: today } };
 
@@ -66,11 +68,12 @@ const allDues = async (
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
+      /*
       .sort(sort)
       .skip(page * limit - limit)
       .limit(limit)
       .session(session);
-
+*/
     return allDues;
   } catch (err: any) {
     throw new HttpError(err.status, err.code, err.message);

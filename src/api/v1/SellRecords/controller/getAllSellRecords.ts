@@ -19,17 +19,19 @@ const getAllSellRecords = asyncHandeler(async (req, res, next) => {
   };
 
   // Call sellRecords service
+ 
   const allSellRecords = await sellRecordsService.getAllSellRecords(
     queryParams
   );
 
   //soldOutDueModel: mongoose.Model<dueType, {}, {}, {}, mongoose.Document<unknown, {}, dueType> & dueType & { _id: Types.ObjectId; }, any>, searchBy: unknown,
   // Counting documents from db depends on search
+
   const totalItems = (await count(
     soldOutDueModel,
     searchBy as string
   )) as number;
-
+ 
   const pagination = query.getPagination({
     page: queryParams.page,
     limit: queryParams.limit,
