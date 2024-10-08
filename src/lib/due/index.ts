@@ -12,8 +12,10 @@ import expireDueService from "../expiredDue";
  */
 const createDue = async (duePaylode: dueType) => {
   try {
-     
-    const createdDueInfo = await dueModel.create({...duePaylode,sellingPrice:''});
+    const createdDueInfo = await dueModel.create({
+      ...duePaylode,
+      sellingPrice: "",
+    });
 
     return createdDueInfo;
   } catch (err) {
@@ -32,7 +34,7 @@ const createDue = async (duePaylode: dueType) => {
  * @param sortType
  * @param sortBy
  * @param searchBy
- * @returns Created due
+ * @returns all due
  */
 const allDues = async (
   page: number,
@@ -50,15 +52,15 @@ const allDues = async (
 
   // Query for filter
   const filter = searchBy
-    ? { sellerName: { $regex: searchBy, $options: "i" },expiredDate:{$gte:today}}
-    : {expiredDate:{$gte:today}};
+    ? {
+        sellerName: { $regex: searchBy, $options: "i" },
+        expiredDate: { $gte: today },
+      }
+    : { expiredDate: { $gte: today } };
 
   // Construct sort object
   const sort: SortObject = {};
   sort[sortBy] = sortType === "asc" ? 1 : -1;
-
-
-
 
   try {
     // retriveing all dues from db
@@ -69,12 +71,6 @@ const allDues = async (
       .limit(limit)
       .session(session);
 
-
-
-    
-    // filtering due dependes on date because i will insert the expired due in db
-   // const haveTimeDues = allDues.filter((due) => due.expiredDate >= today);
-    
     return allDues;
   } catch (err: any) {
     throw new HttpError(err.status, err.code, err.message);

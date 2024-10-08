@@ -15,7 +15,9 @@ dbConnetionsUrl = `${dbConnetionsUrl}/${process.env.DB_NAME}?${process.env.DB_QU
 
 const connectDb = async () => {
   try {
-    await mongoose.connect(dbConnetionsUrl);
+    await mongoose.connect(dbConnetionsUrl,{
+      maxPoolSize: 120 // Set the max number of concurrent connections in the pool
+    });
     console.log("succesfully connected with db");
   } catch (err) {
     console.log(err);
