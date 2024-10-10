@@ -28,7 +28,10 @@ const dueSchema = new Schema<dueType>(
   },
   { timestamps: true }
 );
+// Create an index on the 'expiredDate' field for efficient querying
+dueSchema.index({sellerName : 1 , expiredDate : 1})
 
+// Create due Model useing schema
 const dueModel = model<dueType>("due", dueSchema);
 
 export default dueModel;

@@ -43,8 +43,6 @@ const allDues = async ({
   sortBy,
   searchBy,
 }: TQueryParams) => {
-
-  
   // Create a seassion
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -55,8 +53,8 @@ const allDues = async ({
   // Query for filter
   const filter = searchBy
     ? {
-        sellerName: { $regex: searchBy, $options: "i" },
-        
+        sellerName: { $regex: "^" + searchBy, $options: "i" },
+        expiredDate : {$gte : today}
       }
     : { expiredDate: { $gte: today } };
 
@@ -68,12 +66,11 @@ const allDues = async ({
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
-      /*
       .sort(sort)
       .skip(page * limit - limit)
       .limit(limit)
       .session(session);
-*/
+
     return allDues;
   } catch (err: any) {
     throw new HttpError(err.status, err.code, err.message);

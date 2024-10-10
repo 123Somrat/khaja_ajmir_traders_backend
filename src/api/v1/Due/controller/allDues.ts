@@ -26,10 +26,8 @@ const allDues = asyncHandeler(async (req: Request, res: Response, next: NextFunc
   const allDue = await dueService.allDues(queryParams);
   
   // Count total items depends on search for pagination
-
-  console.time('count')
   const totalItems = await dueService.count(searchBy as string) as number;
-  console.timeEnd('count')
+  
   
   //const totalItems = await count(dueModel,searchBy as string) as number
  
@@ -56,7 +54,7 @@ const allDues = asyncHandeler(async (req: Request, res: Response, next: NextFunc
     message: "Data retrived succesfully",
     data: allDue,
     meta: pagination,
-    //hateOsLinks,
+    hateOsLinks,
   });
 });
 
