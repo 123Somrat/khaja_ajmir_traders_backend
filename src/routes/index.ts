@@ -34,8 +34,8 @@ router.route('/api/v1/expiredDues')
 
 // * for patch  delete a single expired due
 router.route('/api/v1/expiredDues/:id')
-.put(authenticationMiddleWare,expiredDueController.updateExpiredDueDate)
-.patch(authenticationMiddleWare,expiredDueController.patchExpiredDues)
+.put(expiredDueController.updateExpiredDueDate)
+.patch(expiredDueController.patchExpiredDues)
 
 
 // * Get all sell Records

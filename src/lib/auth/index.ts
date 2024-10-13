@@ -70,7 +70,7 @@ const login = async ({email , password}: { email: string; password: string })=> 
 
 
    const  token = await tokenService.generateToken({name:isUser.name,email:isUser.email,role:isUser.role as string})
-     console.log(token)
+     
     return { isUser , token }
   } catch (err) {
     if (err instanceof HttpError) {
