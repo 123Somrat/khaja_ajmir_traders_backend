@@ -10,10 +10,11 @@ const allDues = asyncHandeler(
     // destructure query params
     const { page, limit, sortType, sortBy, searchBy } = req.query;
 
+    
     // created queryParams
     const queryParams = {
-      page: Number(page) ?? 1,
-      limit: Number(limit) ?? 5,
+      page: (typeof(page)==='undefined') ? 1 : Number(page),
+      limit:(typeof(limit)==='undefined') ? 5 : Number(limit),
       sortType: (sortType as string) ?? "dsc",
       sortBy: (sortBy as string) ?? "expiredDate",
       searchBy: (searchBy as string) ?? "",
