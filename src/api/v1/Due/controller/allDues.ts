@@ -1,61 +1,65 @@
 import asyncHandeler from "../../../../utils/asyncHandeler";
 import { Request, Response, NextFunction } from "express";
 import dueService from "../../../../lib/due";
-import count from '../../../../utils/documentsCount'
+import count from "../../../../utils/documentsCount";
 import query from "../../../../utils/query";
 import dueModel from "../../../../models/due/dueSchema";
 
+const allDues = asyncHandeler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // destructure query params
+    const { page, limit, sortType, sortBy, searchBy } = req.query;
 
-const allDues = asyncHandeler(async (req: Request, res: Response, next: NextFunction) => {
+    // created queryParams
+    const queryParams = {
+      page: Number(page) ?? 1,
+      limit: Number(limit) ?? 5,
+      sortType: (sortType as string) ?? "dsc",
+      sortBy: (sortBy as string) ?? "expiredDate",
+      searchBy: (searchBy as string) ?? "",
+    };
 
-  // destructure query params
-  const { page, limit, sortType, sortBy, searchBy } = req.query;
+    // Call allDues service for getting all dues from db
+    const allDue = await dueService.allDues(queryParams);
 
+    // Count total items depends on search for pagination
+    const totalItems = (await dueService.count(searchBy as string)) as number;
 
-  // created queryParams
-  const queryParams = {
-    page: Number(page) ?? 1,
-    limit: Number(limit) ?? 5,
-    sortType: (sortType as string) ?? "dsc",
-    sortBy: (sortBy as string) ?? "expiredDate",
-    searchBy: (searchBy as string) ?? "",
-  };
+    //const totalItems = await count(dueModel,searchBy as string) as number
 
+    // get pagination data
+    const pagination = query.getPagination({
+      page: queryParams.page,
+      limit: queryParams.limit,
+      totalItems,
+    });
 
-  // Call allDues service for getting all dues from db
-  const allDue = await dueService.allDues(queryParams);
-  
-  // Count total items depends on search for pagination
-  const totalItems = await dueService.count(searchBy as string) as number;
-  
-  
-  //const totalItems = await count(dueModel,searchBy as string) as number
- 
-  // get pagination data
-  const pagination = query.getPagination({
-    page: queryParams.page,
-    limit: queryParams.limit,
-    totalItems,
-  });
+    // getHateOs links
+    const hateOsLinks = query.generateHateOsLinks({
+      url: req.url,
+      path: req.path,
+      query: req.query,
+      hasNext: !!pagination.next,
+      hasPrev: !!pagination.prev,
+    });
 
-  // getHateOs links
-  const hateOsLinks = query.generateHateOsLinks({
-    url: req.url,
-    path: req.path,
-    query: req.query,
-    hasNext: !!pagination.next,
-    hasPrev: !!pagination.prev,
-  });
+    // Set Cache-Control header to cache the response for 60  seconds
+    res.set({
+      "Cache-Control": "public ,max-age=60",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    });
 
-  // send response
-  res.status(200).json({
-    status: 200,
-    code: "OK",
-    message: "Data retrived succesfully",
-    data: allDue,
-    meta: pagination,
-    hateOsLinks,
-  });
-});
+    // Send response
+    res.status(200).json({
+      status: 200,
+      code: "OK",
+      message: "Data retrived succesfully",
+      data: allDue,
+      meta: pagination,
+      hateOsLinks,
+    });
+  }
+);
 
 export default allDues;

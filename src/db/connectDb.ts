@@ -1,3 +1,4 @@
+import { Db } from "mongodb";
 import mongoose from "mongoose";
 
 
@@ -19,6 +20,8 @@ const connectDb = async () => {
       maxPoolSize: 120 // Set the max number of concurrent connections in the pool
     });
     console.log("succesfully connected with db");
+  
+
   } catch (err) {
     console.log(err);
   }

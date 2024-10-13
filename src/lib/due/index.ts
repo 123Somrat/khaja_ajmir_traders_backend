@@ -54,7 +54,7 @@ const allDues = async ({
   const filter = searchBy
     ? {
         sellerName: { $regex: "^" + searchBy, $options: "i" },
-        expiredDate : {$gte : today}
+        expiredDate: { $gte: today },
       }
     : { expiredDate: { $gte: today } };
 
