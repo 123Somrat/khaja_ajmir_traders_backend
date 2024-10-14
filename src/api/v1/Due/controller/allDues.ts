@@ -44,13 +44,9 @@ const allDues = asyncHandeler(
       hasPrev: !!pagination.prev,
     });
 
-    // Set Cache-Control header to cache the response for 60  seconds
-    res.set({
-      "Cache-Control": "public ,max-age=60",
-      "Content-Type" : "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:5173",
-    });
-    console.log('api called')
+
+
+    
     // Send response
     res.status(200).json({
       status: 200,
@@ -60,7 +56,7 @@ const allDues = asyncHandeler(
       meta: pagination,
       hateOsLinks,
     });
-    console.log('api called after response')
+
   }
 );
 
