@@ -21,27 +21,27 @@ const io = new Server(server, {
 });
 
 // Add auth medial for secure connection
-io.use(async (socket, next) => {
-  try {
-    const token = socket.handshake.query.token as string;
-    if (!token) {
-      throw new HttpError(401, "Unauthorized", "Acess denied");
-    }
+// io.use(async (socket, next) => {
+//   try {
+//     const token = socket.handshake.query.token as string;
+//     if (!token) {
+//       throw new HttpError(401, "Unauthorized", "Acess denied");
+//     }
 
-    if (token) {
-      const verifiedToken = await tokenService.verifyToken(token);
+//     if (token) {
+//       const verifiedToken = await tokenService.verifyToken(token);
 
-      if (!verifiedToken) {
-        throw new HttpError(401, "Unauthorized", "Acess denied");
-      }
-      next();
-    }
-  } catch (err) {
-    if (err instanceof HttpError) {
-      throw new HttpError(err.status, err.code, err.message);
-    }
-  }
-});
+//       if (!verifiedToken) {
+//         throw new HttpError(401, "Unauthorized", "Acess denied");
+//       }
+//       next();
+//     }
+//   } catch (err) {
+//     if (err instanceof HttpError) {
+//       throw new HttpError(err.status, err.code, err.message);
+//     }
+//   }
+// });
 
 // web socket connection
 io.on("connection", (Socket) => {
