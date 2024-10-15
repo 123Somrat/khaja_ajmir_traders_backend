@@ -3,9 +3,11 @@ import app from "./app";
 import middleWare from "./middleware";
 import connectDb from "./db/connectDb";
 import "./lib/cronJobs/index";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import HttpError from "./utils/customError";
 import tokenService from "./lib/token";
+import { NextFunction } from "express";
+import { parse } from "url";
 const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
@@ -20,32 +22,26 @@ const io = new Server(server, {
   },
 });
 
-// Add auth medial for secure connection
-// io.use(async (socket, next) => {
-//   try {
-//     const token = socket.handshake.query.token as string;
-//     if (!token) {
-//       throw new HttpError(401, "Unauthorized", "Acess denied");
-//     }
+// Middleware to validate WebSocket connection requests by checking the query token.
+// If token is "abc", the WebSocket upgrade is allowed; otherwise, the request is denied with a 401 Unauthorized response.
 
-//     if (token) {
-//       const verifiedToken = await tokenService.verifyToken(token);
+io.engine.use((req: any, res: any, next: any) => {
+  const token = req._query.token; // Extract token from query string
 
-//       if (!verifiedToken) {
-//         throw new HttpError(401, "Unauthorized", "Acess denied");
-//       }
-//       next();
-//     }
-//   } catch (err) {
-//     if (err instanceof HttpError) {
-//       throw new HttpError(err.status, err.code, err.message);
-//     }
-//   }
-// });
+  // Example token validation
+  if (token === "abc") {
+    next(); // Allow WebSocket upgrade
+  } else {
+    console.log("Unauthorized request for WebSocket upgrade");
+    res.writeHead(401, "Unauthorized"); // Send 401 and close connection
+    res.end("Unauthorized");
+  }
+});
+
 
 // web socket connection
 io.on("connection", (Socket) => {
-  console.log("User connected with wocket");
+  console.log("User connected with socket");
 
   Socket.on("disconnect", () => {
     console.log("user disconnected from web socket");
