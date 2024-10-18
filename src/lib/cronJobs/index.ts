@@ -8,7 +8,7 @@ import HttpError from "../../utils/customError";
 import dueType from "../../types/types";
 import generateEmailContent from "../../utils/generateEmailContent";
 import sendEmail from "../email";
-import io from "../..";
+import expiredDueNotifications from "../..";
 
 /**
  * * Run after every 6 hours
@@ -71,7 +71,7 @@ cron.schedule(
           const info = await sendEmail(emailContent);
 
           // send live notification
-          io.emit("expiredDueNotifications", haveToDeleteDueFromDueModle);
+          expiredDueNotifications.emit("expiredDueNotifications", haveToDeleteDueFromDueModle);
         }
       }
       // Commit transaction

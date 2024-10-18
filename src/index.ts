@@ -22,14 +22,20 @@ const io = new Server(server, {
   },
 });
 
+//Created NameSpace for ExpiredDueNotifications
+const expiredDueNotifications = io.of('/expiredDueNotifications')
+
+
+
+
+
 // Middleware to validate WebSocket connection requests by checking the query token.
 // If token is "abc", the WebSocket upgrade is allowed; otherwise, the request is denied with a 401 Unauthorized response.
-
 io.engine.use((req: any, res: any, next: any) => {
   const token = req._query.token; // Extract token from query string
 
   // Example token validation
-  if (token === "abc") {
+  if (token === "abcd") {
     next(); // Allow WebSocket upgrade
   } else {
     console.log("Unauthorized request for WebSocket upgrade");
@@ -39,12 +45,12 @@ io.engine.use((req: any, res: any, next: any) => {
 });
 
 
-// web socket connection
-io.on("connection", (Socket) => {
-  console.log("User connected with socket");
+// Listening connection for expiredDueNotifications
+expiredDueNotifications.on("connection", (Socket) => {
+  console.log("User connected with expiredDueNotifications socket");
 
   Socket.on("disconnect", () => {
-    console.log("user disconnected from web socket");
+    console.log("user disconnected from expiredDueNotifications  socket");
   });
 });
 
@@ -58,4 +64,4 @@ const main = async () => {
 
 main();
 
-export default io;
+export default expiredDueNotifications;
