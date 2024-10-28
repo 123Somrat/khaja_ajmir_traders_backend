@@ -8,7 +8,8 @@ import HttpError from "../../utils/customError";
 import dueType from "../../types/types";
 import generateEmailContent from "../../utils/generateEmailContent";
 import sendEmail from "../email";
-import expiredDueNotifications from "../..";
+import { expiredDueNotifications } from '../../index'
+
 
 /**
  * * Run after every 6 hours
