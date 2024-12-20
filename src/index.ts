@@ -14,7 +14,11 @@ const port = process.env.PORT || 5000;
 
 // middleware
 middleWare(app);
+
+
+
 const io = initSocketServer(httpserver);
+
 const expiredDueNotifications = expiredNotifications();
 
 // application strat

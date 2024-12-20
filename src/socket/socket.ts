@@ -10,7 +10,8 @@ const initSocketServer = (httpserver: http.Server) => {
       credentials: true,
     },
   });
-  socketMiddleware(io)
+
+  socketMiddleware(io);
   return io;
 };
 

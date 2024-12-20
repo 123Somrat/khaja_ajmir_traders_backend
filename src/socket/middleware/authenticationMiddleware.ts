@@ -1,15 +1,16 @@
 //Authenticate user before upgrade protocol request
 const socketAuthenticationMiddleware = (req: any, res: any, next: any) => {
   const token = req._query.token; // Extract token from query string
-  console.log(token);
+
   // Example token validation
-  if (token === "abc") {
+  if (token === "abcd") {
     next(); // Allow WebSocket upgrade
   } else {
-    console.log("Unauthorized request for WebSocket upgrade");
-    res.writeHead(401, "Unauthorized"); // Send 401 and close connection
-    res.end("Unauthorized");
+    console.error("Unauthorized access attempt");
+    const error = new Error("Unauthorized"); // Create an error with a message
+    next(error); // Pass the error to the next function
   }
-};
+  }
+;
 
 export default socketAuthenticationMiddleware;

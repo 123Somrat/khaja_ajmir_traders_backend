@@ -4,6 +4,7 @@ import dueService from "../../../../lib/due";
 import count from "../../../../utils/documentsCount";
 import query from "../../../../utils/query";
 import dueModel from "../../../../models/due/dueSchema";
+import successDto from "../../../../utils/successDto";
 
 const allDues = asyncHandeler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -45,7 +46,8 @@ const allDues = asyncHandeler(
     });
 
 
-
+     
+      //successDto(res,200,"OK","Data retrived succesfully",allDue,pagination,hateOsLinks)
     
     // Send response
     res.status(200).json({
