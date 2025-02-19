@@ -6,8 +6,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": ["jest"]
   },
-  "include": ["src/**/*.ts", "src/models/expiredDue"],
+  "include": ["src/**/*.ts","tests/**/*.test.ts","src/models/expiredDue"],
   "exclude": ["node_modules"]
 }

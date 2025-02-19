@@ -16,7 +16,7 @@ const createDue = async (duePaylode: dueType) => {
       ...duePaylode,
       sellingPrice: "",
     });
-
+    console.log(createdDueInfo);
     return createdDueInfo;
   } catch (err) {
     throw new HttpError(
@@ -71,9 +71,17 @@ const allDues = async ({
       .limit(limit)
       .session(session);
 
+    // ✅ Commit transaction
+    await session.commitTransaction();
+
     return allDues;
   } catch (err: any) {
+    await session.abortTransaction();
+
     throw new HttpError(err.status, err.code, err.message);
+  } finally {
+    // ✅ End the session
+    session.endSession();
   }
 };
 

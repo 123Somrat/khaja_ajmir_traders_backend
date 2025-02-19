@@ -22,11 +22,11 @@ router.route('/api/v1/login').post(userController.login)
 // ** All Due related routes
 router.route('/api/v1/dues')
 .get(cacheMiddleware('public','60'),dueController.allDues)
-.post(authenticationMiddleWare,authoraization(['admin']),requestValidateSchema(dueValidationSchma),dueController.createDue)
+.post(authenticationMiddleWare,authoraization(['user']),requestValidateSchema(dueValidationSchma),dueController.createDue)
 
 // * for get patch put delete a single due
 router.route('/api/v1/dues/:id')
-.get(authenticationMiddleWare,authoraization(['admin']),dueController.getSingleDue)
+.get(authenticationMiddleWare,authoraization(['user']),dueController.getSingleDue)
 
 
 // * Expired Due related routes

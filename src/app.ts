@@ -8,9 +8,9 @@ dotenv.config();
 
 app.get('/api/v1/health',(_req,res)=>{
    res.json({
-       health:"OK",
+       status:200,
        message:'Boddha biaggin tik tak,tui ham gor',
-       code : 200
+       code :"OK"
    })
 })
 
