@@ -16,7 +16,7 @@ const createDue = async (duePaylode: dueType) => {
       ...duePaylode,
       sellingPrice: "",
     });
-    console.log(createdDueInfo);
+   
     return createdDueInfo;
   } catch (err) {
     throw new HttpError(
@@ -44,8 +44,8 @@ const allDues = async ({
   searchBy,
 }: TQueryParams) => {
   // Create a seassion
-  const session = await mongoose.startSession();
-  session.startTransaction();
+  //const session = await mongoose.startSession();
+  //session.startTransaction();
 
   // get today Date
   const today = dayjs().format("YYYY-MM-DD");
@@ -57,31 +57,32 @@ const allDues = async ({
         expiredDate: { $gte: today },
       }
     : { expiredDate: { $gte: today } };
-
+  
   // Construct sort object
   const sort: SortObject = {};
   sort[sortBy] = sortType === "asc" ? 1 : -1;
-
+    
   try {
+   
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
       .sort(sort)
       .skip(page * limit - limit)
       .limit(limit)
-      .session(session);
+      //.session(session);
 
     // ✅ Commit transaction
-    await session.commitTransaction();
+    //await session.commitTransaction();
 
     return allDues;
   } catch (err: any) {
-    await session.abortTransaction();
-
+    
+   // await session.abortTransaction();
     throw new HttpError(err.status, err.code, err.message);
   } finally {
     // ✅ End the session
-    session.endSession();
+   // session.endSession();
   }
 };
 

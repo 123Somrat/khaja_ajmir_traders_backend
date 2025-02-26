@@ -1,15 +1,12 @@
 import { Tpagination } from "../types/types";
 import geneRateQueryString from "./queryStr";
 
-
 /**
  *
  * @param param0
  * @returns pagination data
  */
 const getPagination = ({ page, limit, totalItems }: Tpagination) => {
-
-
   const totalPage = Math.ceil(totalItems / limit);
 
   let next;
@@ -35,10 +32,6 @@ const getPagination = ({ page, limit, totalItems }: Tpagination) => {
   return pagination;
 };
 
-
-
-
-
 type Tlinks = {
   self: string;
   next?: string;
@@ -46,8 +39,8 @@ type Tlinks = {
 };
 
 /**
- * 
- * @param param0 
+ *
+ * @param param0
  * @returns links
  */
 const generateHateOsLinks = ({

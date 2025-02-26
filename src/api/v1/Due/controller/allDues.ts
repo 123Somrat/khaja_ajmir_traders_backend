@@ -10,20 +10,23 @@ const allDues = asyncHandeler(
   async (req: Request, res: Response, next: NextFunction) => {
     // destructure query params
     const { page, limit, sortType, sortBy, searchBy } = req.query;
-
-    
+   
+  
     // created queryParams
     const queryParams = {
-      page: (typeof(page)==='undefined') ? 1 : Number(page),
-      limit:(typeof(limit)==='undefined') ? 5 : Number(limit),
-      sortType: (sortType as string) ?? "dsc",
-      sortBy: (sortBy as string) ?? "expiredDate",
-      searchBy: (searchBy as string) ?? "",
+      page: page === undefined || isNaN(Number(page)) || Number(page)<1 ? 1 : Number(page),
+      limit:limit === undefined || isNaN(Number(limit)) || Number(limit)<1 ? 5 : Number(limit),
+      sortType: (sortType === undefined || sortType === "" || (sortType !== 'asc' &&  sortType !=='dsc')) ? "asc" : sortType,
+      sortBy: (sortBy===undefined || sortBy === '' || sortBy !=="expiredDate" )? "expiredDate" : sortBy,
+      searchBy: (searchBy===undefined || searchBy === '' || searchBy !=="sellerName") ? "sellerName" : searchBy,
     };
+
 
     // Call allDues service for getting all dues from db
     const allDue = await dueService.allDues(queryParams);
+     
 
+    
     // Count total items depends on search for pagination
     const totalItems = (await dueService.count(searchBy as string)) as number;
 
@@ -36,11 +39,13 @@ const allDues = asyncHandeler(
       totalItems,
     });
 
+     
+     
     // getHateOs links
     const hateOsLinks = query.generateHateOsLinks({
-      url: req.url,
+      url: req.url.split('?')[0],
       path: req.path,
-      query: req.query,
+      query: queryParams,
       hasNext: !!pagination.next,
       hasPrev: !!pagination.prev,
     });

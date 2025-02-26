@@ -29,7 +29,10 @@ const main = async () => {
   });
 };
 
-main();
+if(process.env.NODE_ENV !== 'test'){
+  main();
+}
+
 // Initialize Socket.IO with type safety
 
 export { httpserver, io, expiredDueNotifications };

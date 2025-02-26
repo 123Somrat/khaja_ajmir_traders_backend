@@ -16,9 +16,10 @@ const middleWare = (app: Application) => {
   app.use(cors(corsOptions));
   app.use(express.json());
   app.use(router);
+  
   // compress all responses
   app.use(compression())
-
+  
   app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
     res.status(err.status).json({
       status: err.status || 500,

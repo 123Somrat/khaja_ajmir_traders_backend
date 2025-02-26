@@ -1,6 +1,7 @@
 import dueModel from "../../src/models/due/dueSchema";
 import dueService from "../../src/lib/due";
 import mongoose from "mongoose";
+import exp from "constants";
 
 
 describe("Dues", () => {
@@ -40,13 +41,13 @@ describe("Dues", () => {
 
   // Mocking mongoose session
   beforeEach(() => {
-    sessionMock = {
-      startTransaction: jest.fn(),
-      commitTransaction: jest.fn(),
-      endSession: jest.fn(),
-      abortTransaction: jest.fn(),
-    };
-    mongoose.startSession = jest.fn().mockReturnValue(sessionMock);
+   // sessionMock = {
+   //   startTransaction: jest.fn(),
+     // commitTransaction: jest.fn(),
+     // endSession: jest.fn(),
+     // abortTransaction: jest.fn(),
+   // };
+   // mongoose.startSession = jest.fn().mockReturnValue(sessionMock);
   });
 
   // Reset mocks
@@ -58,8 +59,8 @@ describe("Dues", () => {
   const mockQuery = {
     sort: jest.fn().mockReturnThis(),
     skip: jest.fn().mockReturnThis(),
-    limit: jest.fn().mockReturnThis(),
-    session: jest.fn().mockReturnValue(allDues), // ✅ Fix: Mock `.session()`
+    limit: jest.fn().mockReturnValue(allDues),
+   // session: jest.fn().mockReturnValue(allDues), // ✅ Fix: Mock `.session()`
   };
 
   // Query params
@@ -77,13 +78,12 @@ it("Should return all dues with default query parameters", async () => {
     (dueModel.find as jest.Mock) = jest.fn().mockReturnValue(mockQuery);
 
     const response = await dueService.allDues({page:0,limit:0,sortType:'',sortBy:'',searchBy:''});
-
-    expect(mongoose.startSession).toHaveBeenCalled();
-    expect(sessionMock.startTransaction).toHaveBeenCalled();
-    expect(sessionMock.commitTransaction).toHaveBeenCalled();
-    expect(sessionMock.endSession).toHaveBeenCalled();
+   // expect(mongoose.startSession).toHaveBeenCalled();
+   // expect(sessionMock.startTransaction).toHaveBeenCalled();
+   // expect(sessionMock.commitTransaction).toHaveBeenCalled();
+   // expect(sessionMock.endSession).toHaveBeenCalled();
     expect(response).toEqual(allDues);
-    expect(sessionMock.abortTransaction).not.toHaveBeenCalled();
+   // expect(sessionMock.abortTransaction).not.toHaveBeenCalled();
 
 })
 
@@ -95,20 +95,22 @@ it("Should return all dues with default query parameters", async () => {
 
     const response = await dueService.allDues(queryParams);
 
-    expect(mongoose.startSession).toHaveBeenCalled();
-    expect(sessionMock.startTransaction).toHaveBeenCalled();
-    expect(sessionMock.commitTransaction).toHaveBeenCalled();
-    expect(sessionMock.endSession).toHaveBeenCalled();
+   // expect(mongoose.startSession).toHaveBeenCalled();
+    //expect(sessionMock.startTransaction).toHaveBeenCalled();
+   //expect(sessionMock.commitTransaction).toHaveBeenCalled();
+    //expect(dueModel.find).toHaveBeenCalled();
+    //expect(sessionMock.commitTransaction).toHaveBeenCalled();
+   // expect(sessionMock.endSession).toHaveBeenCalled();
     expect(response).toEqual(allDues);
-    expect(sessionMock.abortTransaction).not.toHaveBeenCalled();
+    //expect(sessionMock.abortTransaction).not.toHaveBeenCalled();
   });
 
   it("Should return a empty array if no dues found", async () => {
     const mockQuery = {
       sort: jest.fn().mockReturnThis(),
       skip: jest.fn().mockReturnThis(),
-      limit: jest.fn().mockReturnThis(),
-      session: jest.fn().mockReturnValue([]),
+      limit: jest.fn().mockReturnValue([]),
+     // session: jest.fn().mockReturnValue([]),
     };
 
     // Mock the find method
@@ -122,11 +124,12 @@ it("Should return all dues with default query parameters", async () => {
       searchBy: "sellerName",
     });
 
-    expect(mongoose.startSession).toHaveBeenCalled();
-    expect(sessionMock.startTransaction).toHaveBeenCalled();
-    expect(sessionMock.commitTransaction).toHaveBeenCalled();
-    expect(sessionMock.endSession).toHaveBeenCalled();
+  //  expect(mongoose.startSession).toHaveBeenCalled();
+    //expect(sessionMock.startTransaction).toHaveBeenCalled();
+   // expect(sessionMock.commitTransaction).toHaveBeenCalled();
+   // expect(sessionMock.endSession).toHaveBeenCalled();
     expect(response).toEqual([]);
-    expect(sessionMock.abortTransaction).not.toHaveBeenCalled();
+    //expect(sessionMock.abortTransaction).not.toHaveBeenCalled();
   });
 });
+
