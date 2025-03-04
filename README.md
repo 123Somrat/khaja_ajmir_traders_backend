@@ -49,7 +49,7 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 | <mark> searchBy   </mark>   |  <mark>    String     </mark>    | Not Required : Default sellerName       |
 | <mark> populate     </mark> |  <mark>    String     </mark>    | Not Required : Populare relational data | 
 
-#### Get a single due 
+##### Get a single due 
 
 ```
  api/v1/dues/:{id}
