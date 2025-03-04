@@ -39,3 +39,5 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 ```
   api/v1/dues
 ```
+| Parameter | Types | Description |
+| access_token | Bearer_token | Required : Authorization Header |
