@@ -5,7 +5,7 @@
 The Personal Trading Management System is a web application designed to empower users to manage their Trading activities seamlessly. 
 Project Motive To provide users with free Trading services while leveraging user data for business insights. Key features include:
 
----
+<hr style="height:1px; border:none; color:#000; background-color:#000;">
 
 #### Core Features ✅
  + Authentication
@@ -26,7 +26,7 @@ Project Motive To provide users with free Trading services while leveraging user
  + HATEOAS Links Implementation
  + Unit and Integration Testing
 
----
+<hr style="height:1px; border:none; color:#000; background-color:#000;">
 
 #### Tech Stack
 Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zod , CronJob , Jest
