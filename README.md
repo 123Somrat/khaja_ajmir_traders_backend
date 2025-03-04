@@ -39,6 +39,12 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 ```
   api/v1/dues
 ```
-| Parameter    |   Types       |   Description                   |
-| ---          |    ---        |   ---                           |
-| access_token | Bearer_token  | Required : Authorization Header |
+| Parameter    |   Types       |   Description                           |
+| ---          |    ---        |   ---                                   |
+| access_token | Bearer_token  | Required : Authorization Header         |
+| page         | Number        | Not Required : Default 1                |
+| limit        | Number        | Not Required : Default 10               |
+| sortBy       | String        | Not Required : Deafult expiredDate      |
+| sortType     | String        | Not Required : Default asc              |
+| searchBy     | String        | Not Required : Default sellerName       |
+| populate     | String        | Not Required : Populare relational data | 
