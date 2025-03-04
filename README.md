@@ -26,4 +26,4 @@ Project Motive To provide users with free Trading services while leveraging user
 
 
 #### Tech Stack
-Server : Node js , Express js , MongoDb , MailGun , Socket.io , Zod , CronJob
+Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zod , CronJob , Jest
