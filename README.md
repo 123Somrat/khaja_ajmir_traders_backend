@@ -30,3 +30,9 @@ Project Motive To provide users with free Trading services while leveraging user
 
 #### Tech Stack
 Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zod , CronJob , Jest
+
+#### Api Reference
+
+```
+  api/v1/dues
+```
