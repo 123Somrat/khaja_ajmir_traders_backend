@@ -1,12 +1,13 @@
 import request from "supertest";
-import { httpserver } from "../../src";
+import { httpserver } from "../../../src";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import dueService from "../../src/lib/due";
+import dueService from "../../../src/lib/due";
 import mongoose from "mongoose";
-import HttpError from "../../src/utils/customError";
+import HttpError from "../../../src/utils/customError";
 let mongoServer: MongoMemoryServer;
 
-describe("GET /api/v1/dues", () => {
+describe("GET /api/v1/dues", () => {  
+   
   beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
     const uri = mongoServer.getUri();
