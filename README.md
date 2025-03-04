@@ -5,6 +5,7 @@
 The Personal Trading Management System is a web application designed to empower users to manage their Trading activities seamlessly. 
 Project Motive To provide users with free Trading services while leveraging user data for business insights. Key features include:
 
+
 #### Core Features ✅
  + Authentication
  + Role-Based Permission System
@@ -23,6 +24,7 @@ Project Motive To provide users with free Trading services while leveraging user
  + Optimized API Response Using Caching, Pagination, and Database Indexing
  + HATEOAS Links Implementation
  + Unit and Integration Testing
+
 
 
 #### Tech Stack
