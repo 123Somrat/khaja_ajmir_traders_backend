@@ -48,3 +48,13 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 | <mark> sortType   </mark>   |  <mark>    String     </mark>    | Not Required : Default asc              |
 | <mark> searchBy   </mark>   |  <mark>    String     </mark>    | Not Required : Default sellerName       |
 | <mark> populate     </mark> |  <mark>    String     </mark>    | Not Required : Populare relational data | 
+
+#### Get a single due 
+
+```
+ api/v1/dues/:{id}
+```
+| Parameter            | Type                | Description                             |
+| ---                  | ---                 | ---                                     |
+| <mark>id </mark>     | <mark>String</mark> | Required : id of due to fetch           |
+| <mark>populate</mark>| <mark>String</mark> | Not Required : Populate relational data |
