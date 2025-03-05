@@ -83,7 +83,7 @@ describe("GET /api/v1/dues", () => {
         searchBy: "invalid",
       });
       
-       console.log(res.body)
+
       expect(res.status).toEqual(200);
       expect(res.body).toHaveProperty("status");
       expect(res.body).toHaveProperty("code");
