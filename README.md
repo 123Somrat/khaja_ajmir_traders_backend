@@ -142,3 +142,6 @@ npm run test
 ```
 ### Support 
 ##### For support , email [mdjafaruddinsomrat@gmail.com](mailto:mdjafaruddinsomrat@gmail.com)
+
+### Authors
++ [Somrat](https://github.com/123Somrat)
