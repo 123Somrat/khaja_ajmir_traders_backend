@@ -91,3 +91,27 @@ DELETE /api/v1/dues/:{id}
 | Parameter   | Type    | Description                    |
 |-------------|---------|--------------------------------|
 | `id`        | `String`| Required : Id of due to delete |
+
+#### Environment Variables
+
+<hr>
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`SERVER_PORT` In which port your app will run on local mechine
+
+`SITE_URL` Main Site URL like: http://localhost:4000
+
+`API_BASE_URL` API Base URL Like: http://localhost:4000/api/v1
+
+`JWT_SECRET` JWT Token Secret for creating access & refresh Token
+
+`MONGOOSE_STRING` MongoDB Connection String
+
+`SMTP_USER` SMTP Server User for sending mail
+
+`SMTP_PASS` SMTP Server Password
+
+`SITE_MAIL` From which Mail your app mail will send
+
+`SITE_Name` Application Name
