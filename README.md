@@ -58,3 +58,28 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 | ---                  | ---                 | ---                                     |
 | <mark>id </mark>     | <mark>String</mark> | Required : id of due to fetch           |
 | <mark>populate</mark>| <mark>String</mark> | Not Required : Populate relational data |
+
+
+##### Update or create a new due
+
+```
+/api/v1/dues/:{id}
+```
+
+| Parameter        | Type                  | Description                    |
+|---               | ---                   | ---                            |
+| <mark>id</mark   | <mark>String</mark>   | Required : id of due to update |
+
+
+##### Updateing existing due 
+
+```
+ /api/v1/dues/:{id}
+```
+
+| Parameter | Type              | Description                           | 
+|-----------|-------------------| --------------------------------------|
+|`id`       |`String`           |Required : id of due to partial update |
+|`data`     |`String`           | Required: Data of the field to update |
+
+
