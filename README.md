@@ -93,7 +93,6 @@ DELETE /api/v1/dues/:{id}
 | `id`        | `String`| Required : Id of due to delete |
 
 #### Environment Variables
-
 <hr>
 
 To run this project, you will need to add the following environment variables to your .env file
