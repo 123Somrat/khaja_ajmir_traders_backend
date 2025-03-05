@@ -39,25 +39,25 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 ```
   api/v1/dues
 ```
-| Parameter                   |     Types                        |   Description                           |
-| ---                         |      ---                         |   ---                                   |
-| <mark> access_token </mark> |  <mark>    Bearer_token </mark>  | Required : Authorization Header         |
-| <mark> page        </mark>  |  <mark>  Number       </mark>    | Not Required : Default 1                |
-| <mark> limit       </mark>  |  <mark>   Number      </mark>    | Not Required : Default 10               |
-| <mark> sortBy      </mark>  |  <mark>    String     </mark>    | Not Required : Deafult expiredDate      |
-| <mark> sortType   </mark>   |  <mark>    String     </mark>    | Not Required : Default asc              |
-| <mark> searchBy   </mark>   |  <mark>    String     </mark>    | Not Required : Default sellerName       |
-| <mark> populate     </mark> |  <mark>    String     </mark>    | Not Required : Populare relational data | 
+| Parameter        |     Types        |   Description                           |
+| -----------------|------------------|-----------------------------------------|
+| `access_token `  | `Bearer_token`   | Required : Authorization Header         |
+| `page `          | `Number`         | Not Required : Default 1                |
+| `limit `         | `Number`         | Not Required : Default 10               |
+| `sortBy`         | `String`         | Not Required : Deafult expiredDate      |
+| `sortType`       | `String`         | Not Required : Default asc              |
+| `searchBy`       | `String`         | Not Required : Default sellerName       |
+| `populate`       | `String`         | Not Required : Populare relational data | 
 
 ##### Get a single due 
 
 ```
  api/v1/dues/:{id}
 ```
-| Parameter            | Type                | Description                             |
-| ---                  | ---                 | ---                                     |
-| <mark>id </mark>     | <mark>String</mark> | Required : id of due to fetch           |
-| <mark>populate</mark>| <mark>String</mark> | Not Required : Populate relational data |
+| Parameter   | Type     | Description                             |
+|-------------|----------|-----------------------------------------|
+| `id`        | `String` | Required : id of due to fetch           |
+|`populate`   | `String` | Not Required : Populate relational data |
 
 
 ##### Update or create a new due
@@ -66,9 +66,9 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 /api/v1/dues/:{id}
 ```
 
-| Parameter        | Type                  | Description                    |
-|---               | ---                   | ---                            |
-| <mark>id</mark   | <mark>String</mark>   | Required : id of due to update |
+| Parameter        | Type        | Description                    |
+|------------------|-------------| --------------------------------|
+|`id`              | `String`    | Required : id of due to update |
 
 
 ##### Updateing existing due 
@@ -77,9 +77,9 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
  /api/v1/dues/:{id}
 ```
 
-| Parameter | Type              | Description                           | 
-|-----------|-------------------| --------------------------------------|
-|`id`       |`String`           |Required : id of due to partial update |
-|`data`     |`String`           | Required: Data of the field to update |
+| Parameter | Type     | Description                           | 
+|-----------|----------|---------------------------------------|
+|`id`       |`String`  |Required : id of due to partial update |
+|`data`     |`String`  |Required: Data of the field to update  |
 
 
