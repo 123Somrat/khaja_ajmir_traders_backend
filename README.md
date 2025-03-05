@@ -141,4 +141,4 @@ npm run start
 npm run test
 ```
 ### Support 
-##### For support , email [Contact Support](mailto:mdjafaruddinsomrat@gmail.com)
+##### For support , email [mdjafaruddinsomrat@gmail.com](mailto:mdjafaruddinsomrat@gmail.com)
