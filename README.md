@@ -92,7 +92,7 @@ DELETE /api/v1/dues/:{id}
 |-------------|---------|--------------------------------|
 | `id`        | `String`| Required : Id of due to delete |
 
-#### Environment Variables
+### Environment Variables
 <hr>
 
 To run this project, you will need to add the following environment variables to your .env file
@@ -114,3 +114,31 @@ To run this project, you will need to add the following environment variables to
 `SITE_MAIL` From which Mail your app mail will send
 
 `SITE_Name` Application Name
+
+### Run Locally
+<hr>
+
+##### Clone the project
+```
+git clone https://github.com/123Somrat/khaja_ajmir_traders_backend.git
+```
+##### Go to the project directory
+
+```
+cd my_project
+```
+##### Install dependencies 
+
+```
+npm install 
+```
+##### Start the server
+```
+npm run start
+```
+##### For test 
+```
+npm run test
+```
+### Support 
+##### For support , email [Contact Support](mailto:mdjafaruddinsomrat@gmail.com)
