@@ -37,7 +37,7 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 ##### Get All Dues
 
 ```
-  api/v1/dues
+GET api/v1/dues
 ```
 | Parameter        |     Types        |   Description                           |
 | -----------------|------------------|-----------------------------------------|
@@ -52,34 +52,42 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 ##### Get a single due 
 
 ```
- api/v1/dues/:{id}
+GET api/v1/dues/:{id}
 ```
 | Parameter   | Type     | Description                             |
 |-------------|----------|-----------------------------------------|
-| `id`        | `String` | Required : id of due to fetch           |
+| `id`        | `String` | Required : Id of due to fetch           |
 |`populate`   | `String` | Not Required : Populate relational data |
 
 
 ##### Update or create a new due
 
 ```
-/api/v1/dues/:{id}
+PUT /api/v1/dues/:{id}
 ```
 
 | Parameter        | Type        | Description                    |
 |------------------|-------------| --------------------------------|
-|`id`              | `String`    | Required : id of due to update |
+|`id`              | `String`    | Required : Id of due to update |
 
 
 ##### Updateing existing due 
 
 ```
- /api/v1/dues/:{id}
+PATCH /api/v1/dues/:{id}
 ```
 
 | Parameter | Type     | Description                           | 
 |-----------|----------|---------------------------------------|
-|`id`       |`String`  |Required : id of due to partial update |
+|`id`       |`String`  |Required : Id of due to partial update |
 |`data`     |`String`  |Required: Data of the field to update  |
 
+##### Delete a due 
 
+```
+DELETE /api/v1/dues/:{id}
+```
+
+| Parameter   | Type    | Description                    |
+|-------------|---------|--------------------------------|
+| `id`        | `String`| Required : Id of due to delete |
