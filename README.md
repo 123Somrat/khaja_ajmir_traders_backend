@@ -136,7 +136,7 @@ npm install
 ```
 npm run start
 ```
-#####  To test private route
+####  To test private route
 #####  To test a private route, follow these steps:
 #####  Login to obtain an access token.
 #####  Access the Swagger UI and log in to the Admin account.
