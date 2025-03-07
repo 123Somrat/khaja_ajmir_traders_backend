@@ -43,7 +43,7 @@ GET api/v1/dues
 | -----------------|------------------|-----------------------------------------|
 | `access_token `  | `Bearer_token`   | Required : Authorization Header         |
 | `page `          | `Number`         | Not Required : Default 1                |
-| `limit `         | `Number`         | Not Required : Default 10               |
+| `limit `         | `Number`         | Not Required : Default 5                |
 | `sortBy`         | `String`         | Not Required : Deafult expiredDate      |
 | `sortType`       | `String`         | Not Required : Default asc              |
 | `searchBy`       | `String`         | Not Required : Default sellerName       |
