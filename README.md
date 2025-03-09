@@ -37,24 +37,120 @@ Server : TypeScript ,  Node js , Express js , MongoDb , MailGun , Socket.io , Zo
 ##### Get All Dues
 
 ```
-  api/v1/dues
+GET api/v1/dues
 ```
-| Parameter                   |     Types                        |   Description                           |
-| ---                         |      ---                         |   ---                                   |
-| <mark> access_token </mark> |  <mark>    Bearer_token </mark>  | Required : Authorization Header         |
-| <mark> page        </mark>  |  <mark>  Number       </mark>    | Not Required : Default 1                |
-| <mark> limit       </mark>  |  <mark>   Number      </mark>    | Not Required : Default 10               |
-| <mark> sortBy      </mark>  |  <mark>    String     </mark>    | Not Required : Deafult expiredDate      |
-| <mark> sortType   </mark>   |  <mark>    String     </mark>    | Not Required : Default asc              |
-| <mark> searchBy   </mark>   |  <mark>    String     </mark>    | Not Required : Default sellerName       |
-| <mark> populate     </mark> |  <mark>    String     </mark>    | Not Required : Populare relational data | 
+| Parameter        |     Types        |   Description                           |
+| -----------------|------------------|-----------------------------------------|
+| `access_token `  | `Bearer_token`   | Required : Authorization Header         |
+| `page `          | `Number`         | Not Required : Default 1                |
+| `limit `         | `Number`         | Not Required : Default 5                |
+| `sortBy`         | `String`         | Not Required : Deafult expiredDate      |
+| `sortType`       | `String`         | Not Required : Default asc              |
+| `searchBy`       | `String`         | Not Required : Default sellerName       |
+| `populate`       | `String`         | Not Required : Populare relational data | 
 
 ##### Get a single due 
 
 ```
- api/v1/dues/:{id}
+GET api/v1/dues/:{id}
 ```
-| Parameter            | Type                | Description                             |
-| ---                  | ---                 | ---                                     |
-| <mark>id </mark>     | <mark>String</mark> | Required : id of due to fetch           |
-| <mark>populate</mark>| <mark>String</mark> | Not Required : Populate relational data |
+| Parameter   | Type     | Description                             |
+|-------------|----------|-----------------------------------------|
+| `id`        | `String` | Required : Id of due to fetch           |
+|`populate`   | `String` | Not Required : Populate relational data |
+
+
+##### Update or create a new due
+
+```
+PUT /api/v1/dues/:{id}
+```
+
+| Parameter        | Type        | Description                    |
+|------------------|-------------| --------------------------------|
+|`id`              | `String`    | Required : Id of due to update |
+
+
+##### Updateing existing due 
+
+```
+PATCH /api/v1/dues/:{id}
+```
+
+| Parameter | Type     | Description                           | 
+|-----------|----------|---------------------------------------|
+|`id`       |`String`  |Required : Id of due to partial update |
+|`data`     |`String`  |Required: Data of the field to update  |
+
+##### Delete a due 
+
+```
+DELETE /api/v1/dues/:{id}
+```
+
+| Parameter   | Type    | Description                    |
+|-------------|---------|--------------------------------|
+| `id`        | `String`| Required : Id of due to delete |
+
+### Environment Variables
+<hr>
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`SERVER_PORT` In which port your app will run on local mechine
+
+`SITE_URL` Main Site URL like: http://localhost:4000
+
+`API_BASE_URL` API Base URL Like: http://localhost:4000/api/v1
+
+`JWT_SECRET` JWT Token Secret for creating access & refresh Token
+
+`MONGOOSE_STRING` MongoDB Connection String
+
+`SMTP_USER` SMTP Server User for sending mail
+
+`SMTP_PASS` SMTP Server Password
+
+`SITE_MAIL` From which Mail your app mail will send
+
+`SITE_Name` Application Name
+
+### Run Locally
+<hr>
+
+##### Clone the project
+```
+git clone https://github.com/123Somrat/khaja_ajmir_traders_backend.git
+```
+##### Go to the project directory
+
+```
+cd my_project
+```
+##### Install dependencies 
+
+```
+npm install 
+```
+##### Start the server
+```
+npm run start
+```
+####  To test private route
+#####  To test a private route, follow these steps:
+#####  Login to obtain an access token.
+#####  Access the Swagger UI and log in to the Admin account.
+#####  Copy the generated access token from cookies.
+#####  usernameOrEmail : admin@gmail.com
+#####  password : admin@123
+
+
+##### For test 
+```
+npm run test
+```
+### Support 
+##### For support , email [mdjafaruddinsomrat@gmail.com](mailto:mdjafaruddinsomrat@gmail.com)
+
+### Authors
++ [Somrat](https://github.com/123Somrat)
