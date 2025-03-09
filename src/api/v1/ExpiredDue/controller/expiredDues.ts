@@ -3,7 +3,7 @@ import asyncHandeler from "../../../../utils/asyncHandeler";
 import expiredDueService from "../../../../lib/expiredDue";
 const allExpiredDues: RequestHandler = asyncHandeler(async (req, res, next) => {
 
-  console.log('expired dues controller call')
+  console.log('expired dues controller call',req.url)
   // Call getAllExpiredDues service
   const expiredDues = await expiredDueService.getAllExpiredDues();
 

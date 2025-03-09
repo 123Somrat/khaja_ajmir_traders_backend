@@ -28,19 +28,19 @@ const allDues = asyncHandeler(
           ? "asc"
           : sortType,
       sortBy:
-        sortBy === undefined || sortBy === "" || sortBy !== "expiredDate"
+        sortBy === undefined || sortBy === ("" as string)
           ? "expiredDate"
-          : sortBy,
+          : (sortBy as string),
       searchBy:
-        searchBy === undefined || searchBy === "" || searchBy !== "sellerName"
-          ? "sellerName"
-          : searchBy,
+        searchBy === undefined || searchBy === ""  as string
+          ? ""
+          : (searchBy as string),
     };
 
+
+   
     // Call allDues service for getting all dues from db
     const allDue = await dueService.allDues(queryParams);
-
-   console.log(allDue)
 
     // Count total items depends on search for pagination
     const totalItems = (await dueService.count(searchBy as string)) as number;

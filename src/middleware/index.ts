@@ -13,7 +13,8 @@ const corsOptions = {
 };
 
 const middleWare = (app: Application) => {
-  app.use("*", cors(corsOptions));
+  app.use(cors(corsOptions));
+  app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(router);
   
