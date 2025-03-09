@@ -29,9 +29,10 @@ const main = async () => {
   });
 };
 
-if(process.env.NODE_ENV !== 'test'){
+if(process.env.NODE_ENV !== 'test'){  
   main();
-}
+  }
+
 
 // Initialize Socket.IO with type safety
 

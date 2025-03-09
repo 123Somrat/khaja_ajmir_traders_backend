@@ -28,10 +28,11 @@ const expiredDues = async (expiredDues: dueType[]) => {
  */
 const getAllExpiredDues = async () => {
   try {
-    const expiredDues = await expiredDueModel.find();
-
+    const expiredDues = await expiredDueModel.find({});
+     console.log('expired dues call',expiredDues)
     return expiredDues;
   } catch (err) {
+    console.log("from expired dues error block", err);
     throw new HttpError(
       500,
       "Internal server error",

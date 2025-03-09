@@ -9,6 +9,7 @@ const requestValidateSchema = (
   return async (req: Request, res: Response, next: NextFunction) => {
     // extract data from request body
     const haveToValidateData = req.body.data;
+
     const schemas = [zodUserValidationSchema, dueValidationSchma];
     const haveToValidateSchemas = schemas.find((schemas) => schma === schemas);
 

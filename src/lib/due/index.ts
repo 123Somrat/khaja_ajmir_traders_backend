@@ -2,9 +2,7 @@ import dayjs from "dayjs";
 import dueModel from "../../models/due/dueSchema";
 import HttpError from "../../utils/customError";
 import dueType, { SortObject, TQueryParams } from "../../types/types";
-import mongoose, { Types } from "mongoose";
-import expireDueService from "../expiredDue";
-
+import { Types } from "mongoose";
 /**
  ** Create a due
  * @param duePaylode , user
@@ -16,7 +14,7 @@ const createDue = async (duePaylode: dueType) => {
       ...duePaylode,
       sellingPrice: "",
     });
-   
+
     return createdDueInfo;
   } catch (err) {
     throw new HttpError(
@@ -43,10 +41,6 @@ const allDues = async ({
   sortBy,
   searchBy,
 }: TQueryParams) => {
-  // Create a seassion
-  //const session = await mongoose.startSession();
-  //session.startTransaction();
-
   // get today Date
   const today = dayjs().format("YYYY-MM-DD");
 
@@ -57,32 +51,23 @@ const allDues = async ({
         expiredDate: { $gte: today },
       }
     : { expiredDate: { $gte: today } };
-  
+
   // Construct sort object
   const sort: SortObject = {};
   sort[sortBy] = sortType === "asc" ? 1 : -1;
-    
+
   try {
-   
     // retriveing all dues from db
     const allDues = await dueModel
       .find(filter)
       .sort(sort)
       .skip(page * limit - limit)
-      .limit(limit)
-      //.session(session);
-
-    // ✅ Commit transaction
-    //await session.commitTransaction();
+      .limit(limit);
 
     return allDues;
   } catch (err: any) {
-    
-   // await session.abortTransaction();
+    console.log("from all dues error block", err);
     throw new HttpError(err.status, err.code, err.message);
-  } finally {
-    // ✅ End the session
-   // session.endSession();
   }
 };
 

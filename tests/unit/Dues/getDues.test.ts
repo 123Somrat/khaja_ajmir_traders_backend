@@ -1,7 +1,6 @@
 import dueModel from "../../../src/models/due/dueSchema";
 import dueService from "../../../src/lib/due";
-import mongoose from "mongoose";
-import exp from "constants";
+
 
 
 describe("Dues", () => {

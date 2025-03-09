@@ -17,16 +17,16 @@ const router = express.Router()
 // Auth route
 router.route('/api/v1/register').post(requestValidateSchema(zodUserValidationSchema),userController.register)
 router.route('/api/v1/login').post(userController.login)
-
-
+//authoraization(['user'])
+// authenticationMiddleWare,
 // ** All Due related routes
 router.route('/api/v1/dues')
 .get(cacheMiddleware('public','60'),dueController.allDues)
-.post(authenticationMiddleWare,authoraization(['user']),requestValidateSchema(dueValidationSchma),dueController.createDue)
+.post(requestValidateSchema(dueValidationSchma),dueController.createDue)
 
 // * for get patch put delete a single due
 router.route('/api/v1/dues/:id')
-.get(authenticationMiddleWare,authoraization(['user']),dueController.getSingleDue)
+.get(dueController.getSingleDue)
 
 
 // * Expired Due related routes
@@ -41,7 +41,7 @@ router.route('/api/v1/dues/expiredDues/:id')
 
 // * Get all sell Records
 router.route('/api/v1/dues/sellRecords')
-.get(authenticationMiddleWare,sellRecordController.getAllSellRecords)
+.get(sellRecordController.getAllSellRecords)
 
 
 export default router;
